@@ -38,4 +38,20 @@ O construtor chama um método que poderia ser sobrescrito por uma eventual subcl
 Nenhuma alteração no código. O comando oficial de compilação (sem `-Xlint`) não mostra avisos. Tornar o método `final` ou a classe `final` eliminaria o aviso, mas mudaria a declaração especificada no FSD §12.1, então ficou como está.
 
 ### Como evitar no futuro
-Não usar `-Xlint:all` como critério de aceite deste projeto. Se o autor quiser zerar o aviso, a opção mais limpa é declarar `public final void setAutonomiaBateria(double bateria)` em `Veiculo`, o que também impede subclasses de burlar a validação. Isso exige aprovação, porque altera o FSD.
+Não usar `-Xlint:all` como critério de aceite deste projeto.
+
+---
+
+## 08/11/2026 — Semente 2026 gerava um lote pequeno sem valor didático
+
+### Sintoma
+Com `GeradorLote.SEMENTE = 2026L`, as 10 primeiras viagens tinham 0 viagens críticas e só 1 van. A seção de seleção (FILTER) ficava vazia, e a demonstração da avaliação preguiçosa calculava as 10 viagens, sem mostrar que o stream para cedo.
+
+### Causa
+A semente tinha sido escolhida pelo ano, sem conferir o lote que ela gera. Com 70% de bicicletas e bateria inicial de no mínimo 40%, é comum não haver nenhuma crítica em só 10 viagens.
+
+### Solução aplicada
+Busquei sementes cujo lote de 10 tivesse de 3 a 4 vans, 2 a 3 críticas e a primeira crítica entre a #03 e a #05. Com aprovação do autor, a semente passou a ser **376**: 4 vans, 3 críticas (#03, #04, #08) e a avaliação preguiçosa parando em 3 de 10. O FSD (P02, RN-F05, §12.2, §24, §30) e o PLANO foram atualizados.
+
+### Como evitar no futuro
+Quando um dado simulado sustenta uma demonstração, conferir a saída gerada antes de fixar o parâmetro na especificação. Se o autor quiser zerar o aviso, a opção mais limpa é declarar `public final void setAutonomiaBateria(double bateria)` em `Veiculo`, o que também impede subclasses de burlar a validação. Isso exige aprovação, porque altera o FSD.

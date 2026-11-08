@@ -93,9 +93,9 @@ Implementar os tipos imutáveis, as funções puras, o gerador determinístico e
 - `ResultadoViagem.java`: record `(Viagem viagem, double consumo, double bateriaFinal, boolean critica)`.
 - `ResumoCategoria.java`: record `(Categoria, long viagens, long kmTotal, long consumoCentesimos, long alertas)`, com `vazio`, `de`, `combinar` (associativo, valida a categoria) e `consumoTotal()`.
 - `CalculoViagem.java`: `calcular` (RN-F01 a RN-F03), `ehCritica` e `LIMITE_CRITICO = 20.0`.
-- `GeradorLote.java`: `SEMENTE = 2026L` e `gerar(int)` com o algoritmo RN-F05, devolvendo uma lista imutável e validando `quantidade >= 0`.
+- `GeradorLote.java`: `SEMENTE = 376L` e `gerar(int)` com o algoritmo RN-F05, devolvendo uma lista imutável e validando `quantidade >= 0`.
 - `PipelineTelemetria.java`: `transformar`, `selecionarCriticas` e `agregar`, com o parâmetro `Function<List<Viagem>, Stream<Viagem>> fonte`, as constantes `SEQUENCIAL`/`PARALELO` e o comentário explicando por que `agregar` recalcula a partir das viagens (§12.2).
-- `ProcessamentoMain.java`: constantes `LOTE_PEQUENO = 10` e `LOTE_GRANDE = 100_000`, e as seções §15.2.1 a §15.2.4.
+- `ProcessamentoMain.java`: constante `LOTE_PEQUENO = 10` e as seções §15.2.1 a §15.2.4. `LOTE_GRANDE` fica para a Fase 3, onde é usado.
 - Remover `src/processamento/.gitkeep`.
 
 ### Critérios de Conclusão
@@ -109,7 +109,7 @@ Implementar os tipos imutáveis, as funções puras, o gerador determinístico e
 - Nenhuma lambda do pipeline escreve em estado externo (exceto o `peek` didático, que só imprime).
 - Commit: `Implementa pipeline funcional de telemetria`.
 
-### Status: Não iniciada
+### Status: Concluída (08/11/2026)
 
 ---
 

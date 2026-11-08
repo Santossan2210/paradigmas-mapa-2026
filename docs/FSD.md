@@ -299,7 +299,7 @@ Campos `private final`, com métodos de acesso `taxaPorKm()` e `rotulo()`.
 - `static final double LIMITE_CRITICO = 20.0`.
 
 **`public final class GeradorLote`** (construtor privado)
-- `static final long SEMENTE = 2026L`.
+- `static final long SEMENTE = 376L`.
 - `static List<Viagem> gerar(int quantidade)`: gera sequencialmente, com `new java.util.Random(SEMENTE)`, e devolve uma lista **imutável** (`List.copyOf` ou `Stream.toList()`). Algoritmo da §16, RN-F05.
 
 **`public final class PipelineTelemetria`** (construtor privado)
@@ -444,9 +444,11 @@ Viagens calculadas: 3 de 10
 - Uma linha por categoria:
 
 ```
-Van elétrica       | viagens:   3 | km:    214 | consumo: 107.0 | alertas: 2
-Bicicleta elétrica | viagens:   7 | km:    401 | consumo:  80.2 | alertas: 0
+Van elétrica       | viagens:      4 | km:      351 | consumo:      175.5 | alertas:      3
+Bicicleta elétrica | viagens:      6 | km:      429 | consumo:       85.8 | alertas:      0
 ```
+
+Formato: `%-18s | viagens: %6d | km: %8d | consumo: %10.1f | alertas: %6d`. É o mesmo do lote grande (§15.2.5), com largura suficiente para 100.000 viagens. Os valores acima são os reais do lote de 10 viagens com a semente 376.
 
 #### 15.2.5 Seção "Lote grande — 100000 viagens: sequencial × paralelo" (complementar)
 - **Dados:** `GeradorLote.gerar(100_000)`.
@@ -581,7 +583,7 @@ Nomes:
 |---|---|
 | P00 | O cenário do relatório funcional é a telemetria da frota EcoFleet. O documento REQUISITOS não define cenário, e a premissa pode ser removida sem invalidar os tópicos. |
 | P01 | Viagem crítica: `bateriaFinal < 20.0`. Exatamente 20.0 **não** é crítica. |
-| P02 | Lote determinístico: semente 2026; 30% vans e 70% bicicletas (em probabilidade); distância inteira de 5 a 120 km; bateria inicial inteira de 40 a 100%. |
+| P02 | Lote determinístico: semente 376 (escolhida para o lote de 10 viagens conter vans e viagens críticas; a 2026 original gerava 0 críticas e 1 van); 30% vans e 70% bicicletas (em probabilidade); distância inteira de 5 a 120 km; bateria inicial inteira de 40 a 100%. |
 | P03 | Os modos sequencial e paralelo produzem totais idênticos. |
 | P04 | Os dados de entrada nunca são alterados; cada etapa cria dados novos (records). |
 | P05 | O cálculo de uma viagem depende só dela, sem ler nem escrever estado compartilhado. |
@@ -594,7 +596,7 @@ Nomes:
 | RN-F02 | `bruto = bateriaInicial − consumo`; `bateriaFinal = (bruto < 0.0 \|\| bruto > 100.0) ? 0.0 : bruto`. Espelha a RN01 e a RN04 sem estado mutável. |
 | RN-F03 | `critica = bateriaFinal < 20.0` (P01). |
 | RN-F04 | Os ids das viagens são sequenciais, começando em 1, na ordem de geração. |
-| RN-F05 | Algoritmo do gerador, chamado em ordem para cada viagem `i = 1..n` com um único `Random(2026)`: `categoria = random.nextInt(100) < 30 ? VAN : BICICLETA`; `distanciaKm = 5 + random.nextInt(116)`; `bateriaInicial = 40 + random.nextInt(61)`. A geração é **sempre sequencial**; só o processamento pode ser paralelo. |
+| RN-F05 | Algoritmo do gerador, chamado em ordem para cada viagem `i = 1..n` com um único `Random(376)`: `categoria = random.nextInt(100) < 30 ? VAN : BICICLETA`; `distanciaKm = 5 + random.nextInt(116)`; `bateriaInicial = 40 + random.nextInt(61)`. A geração é **sempre sequencial**; só o processamento pode ser paralelo. |
 | RN-F06 | Agregação: para cada categoria, `reduce` com identidade `ResumoCategoria.vazio(cat)` e operação `combinar`, que é associativa. É proibido acumular em variáveis externas. |
 | RN-F07 | Totais acumulados em `long`: km inteiros e consumo em centésimos (`Math.round(consumo × 100)`). Isso torna a soma exata e independente da ordem, o que garante a P03 com `equals`. A exibição divide por 100.0. |
 | RN-F08 | Como o gerador começa sempre com a mesma semente, o lote pequeno é igual às 10 primeiras viagens do lote grande. |
@@ -690,7 +692,7 @@ Não se aplica: não há exclusão nem persistência de registros.
 | Taxa bicicleta | 0.2 | Literal em `BicicletaEletrica.registrarViagem` e `Categoria.BICICLETA` |
 | Limite de bateria válido | 0.0 a 100.0 | Literais em `Veiculo.setAutonomiaBateria` e `CalculoViagem` |
 | Limite crítico | 20.0 | `CalculoViagem.LIMITE_CRITICO` |
-| Semente | 2026 | `GeradorLote.SEMENTE` |
+| Semente | 376 | `GeradorLote.SEMENTE` |
 | Lote pequeno | 10 | Constante `private static final` em `ProcessamentoMain` |
 | Lote grande | 100000 | Constante `private static final` em `ProcessamentoMain` |
 | Rodadas de medição | 1 de aquecimento + 5 medidas | Constantes em `ProcessamentoMain` |
@@ -825,7 +827,7 @@ O sistema é composto por três programas Java 21 de console, compilados com `ja
   - pipeline `map` → `filter` (crítica abaixo de 20%) → `reduce` (totais exatos em `long`);
   - a fonte do stream é passada como função de ordem superior, sequencial ou paralela;
   - avaliação preguiçosa visível;
-  - lote determinístico (semente 2026) de 10 e 100.000 viagens, com prova de resultados idênticos e tempos.
+  - lote determinístico (semente 376) de 10 e 100.000 viagens, com prova de resultados idênticos e tempos.
 - **`verificacao`:** 8 casos de regra, sem framework.
 
 O GitHub Actions compila, executa e confere as saídas a cada push, no repositório público `paradigmas-mapa-2026`. Um script Python gera o `.docx` único, com a Parte I (Tarefas 1 a 3) e a Parte II (Tópicos 1 a 5), a partir de textos editáveis, do código e das saídas reais. Os dados pessoais ficam fora do repositório.
