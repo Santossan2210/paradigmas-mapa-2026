@@ -33,15 +33,15 @@ Deixar o projeto pronto para receber código: pastas, configuração mínima e G
 - [x] `.gitattributes` (LF para texto; binários marcados).
 - [x] `README.md` mínimo, `relatorio/requirements.txt` (`python-docx==1.1.2`) e `relatorio/identificacao.exemplo.txt`.
 - [x] `CLAUDE.md`, `docs/PLANO.md`, `docs/STATUS.md` e `docs/ERROS.md`.
-- [ ] `git init`, `git config user.name "Antonio Santos"` e `git config user.email <definido pelo autor>`, **só no repositório local**.
-- [ ] Primeiro commit com a documentação e o esqueleto.
+- [x] `git init -b main`, `git config user.name "Antonio Santos"` e `git config user.email` com o endereço `noreply` do GitHub do autor, **só no repositório local**.
+- [x] Primeiro commit com a documentação e o esqueleto (`4755dac`).
 
 ### Critérios de Conclusão
 - `git status` **não** lista `Livro.pdf`, `Aula*.pdf` nem `Dashboard.webp`.
 - `git log` mostra o autor "Antonio Santos".
 - Nenhum caminho absoluto em arquivos versionados.
 
-### Status: Em andamento (esqueleto pronto; falta o Git)
+### Status: Concluída (08/11/2026)
 
 ---
 
