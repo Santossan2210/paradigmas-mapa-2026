@@ -1,0 +1,54 @@
+# Compila e executa os três programas em um ambiente remoto gratuito (GitHub Actions)
+# e confere as linhas obrigatórias da saída.
+# Autor: Antonio Santos
+name: Executar e verificar
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  executar:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        # Com shell bash explícito o Actions usa -eo pipefail: uma falha do java
+        # antes do tee não fica escondida
+        shell: bash
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Instalar Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Compilar
+        run: javac -encoding UTF-8 -d out src/telemetria/*.java src/processamento/*.java src/verificacao/*.java
+
+      - name: Executar módulo OO
+        run: java -Dstdout.encoding=UTF-8 -cp out telemetria.Main | tee saida_telemetria.txt
+
+      - name: Conferir módulo OO
+        run: grep -q "Van elétrica: 75.0%" saida_telemetria.txt && grep -q "Bicicleta elétrica: 90.0%" saida_telemetria.txt
+
+      - name: Executar módulo funcional
+        run: java -Dstdout.encoding=UTF-8 -cp out processamento.ProcessamentoMain | tee saida_processamento.txt
+
+      - name: Conferir módulo funcional
+        run: grep -q "Resultados idênticos: SIM" saida_processamento.txt
+
+      - name: Verificar regras
+        run: java -Dstdout.encoding=UTF-8 -cp out verificacao.VerificacaoRegras | tee saida_verificacao.txt
+
+      - name: Publicar saídas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: saidas
+          path: |
+            saida_telemetria.txt
+            saida_processamento.txt
+            saida_verificacao.txt
