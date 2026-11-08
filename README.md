@@ -15,3 +15,5 @@ java -Dstdout.encoding=UTF-8 -cp out telemetria.Main
 java -Dstdout.encoding=UTF-8 -cp out processamento.ProcessamentoMain
 java -Dstdout.encoding=UTF-8 -cp out verificacao.VerificacaoRegras
 ```
+
+No PowerShell, coloque a opção entre aspas: `java "-Dstdout.encoding=UTF-8" -cp out telemetria.Main`.

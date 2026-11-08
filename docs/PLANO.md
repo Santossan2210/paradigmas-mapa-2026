@@ -78,7 +78,7 @@ Implementar exatamente as 4 classes do enunciado e o programa de verificação d
 - `src/telemetria/` contém exatamente 4 arquivos `.java` e nenhum membro além dos da §12.1.
 - Commit: `Implementa módulo OO de telemetria e verificação das regras`.
 
-### Status: Não iniciada
+### Status: Concluída (08/11/2026)
 
 ---
 

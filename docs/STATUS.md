@@ -2,14 +2,14 @@
 
 ## Última atualização: 08/11/2026
 
-## Fase atual: Fase 0 concluída. Próxima: Fase 1 — Módulo OO (`telemetria`) e verificação
+## Fase atual: Fase 1 concluída. Próxima: Fase 2 — Módulo funcional: núcleo
 
 ## Progresso por fase
 
 | Fase | Nome | Status |
 |---|---|---|
 | 0 | Esqueleto e controle de versão | **Concluída**: esqueleto, docs, Git local na branch `main`, autoria "Antonio Santos" e 1º commit `4755dac` |
-| 1 | Módulo OO (`telemetria`) e verificação | Não iniciada |
+| 1 | Módulo OO (`telemetria`) e verificação | **Concluída**: 4 classes em `telemetria` e `VerificacaoRegras`. Compila sem avisos (comando oficial); `Main` imprime 75.0% e 90.0% no formato da FSD §15.1; verificação 8/8 OK; testado no Git Bash e no PowerShell |
 | 2 | Módulo funcional: núcleo | Não iniciada |
 | 3 | Módulo funcional: complementar | Não iniciada |
 | 4 | Repositório GitHub e CI | Não iniciada (remoto ainda não conectado, de propósito) |
@@ -30,5 +30,10 @@
 - Verificar a política da UniCesumar sobre uso de IA (antes da entrega).
 - Criar o repositório `Santossan2210/paradigmas-mapa-2026` (Fase 4).
 
+## Observações da Fase 1
+- `docs/ERROS.md`:
+  - no PowerShell, a opção `-Dstdout.encoding=UTF-8` precisa de aspas;
+  - o aviso `this-escape` só aparece com `-Xlint:all`. Ficou sem correção, porque corrigir mudaria a declaração do FSD. Opcional: tornar `setAutonomiaBateria` `final`, se o autor aprovar.
+
 ## Próxima ação recomendada
-Iniciar a Fase 1 (`docs/PLANO.md`): as 4 classes do pacote `telemetria` e `verificacao.VerificacaoRegras`.
+Iniciar a Fase 2 (`docs/PLANO.md`): `Categoria`, os records, `CalculoViagem`, `GeradorLote`, `PipelineTelemetria` e as seções §15.2.1 a §15.2.4 de `ProcessamentoMain`.
