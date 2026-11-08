@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
@@ -14,6 +15,13 @@ import java.util.stream.Stream;
 public final class ProcessamentoMain {
 
     private static final int LOTE_PEQUENO = 10;
+    private static final int LOTE_GRANDE = 100_000;
+    private static final int RODADAS_AQUECIMENTO = 1;
+    private static final int RODADAS_MEDIDAS = 5;
+
+    /** Resultado da última rodada e o tempo médio das rodadas medidas. */
+    private record Medicao(Map<Categoria, ResumoCategoria> resultado, double mediaMs) {
+    }
 
     private ProcessamentoMain() {
     }
@@ -44,6 +52,51 @@ public final class ProcessamentoMain {
         // REDUCE
         titulo("Agregação por categoria — lote pequeno");
         imprimirTotais(PipelineTelemetria.agregar(lote, PipelineTelemetria.SEQUENCIAL));
+
+        compararSequencialEParalelo();
+    }
+
+    /**
+     * Roda o mesmo pipeline nos dois modos sobre o lote grande. Como não há estado
+     * compartilhado, os totais precisam sair iguais; se não saírem, o programa
+     * termina com erro.
+     */
+    private static void compararSequencialEParalelo() {
+        titulo("Lote grande — " + LOTE_GRANDE + " viagens: sequencial × paralelo");
+        List<Viagem> loteGrande = GeradorLote.gerar(LOTE_GRANDE);
+
+        Medicao sequencial = medir(loteGrande, PipelineTelemetria.SEQUENCIAL);
+        Medicao paralelo = medir(loteGrande, PipelineTelemetria.PARALELO);
+        boolean identicos = sequencial.resultado().equals(paralelo.resultado());
+
+        imprimirTotais(sequencial.resultado());
+        System.out.printf(Locale.ROOT, "Tempo médio sequencial: %.1f ms%n", sequencial.mediaMs());
+        System.out.printf(Locale.ROOT, "Tempo médio paralelo:   %.1f ms%n", paralelo.mediaMs());
+        System.out.println("Resultados idênticos: " + (identicos ? "SIM" : "NÃO"));
+        System.out.println("Observação: tempos variam conforme a máquina e não representam desempenho de produção.");
+
+        if (!identicos) {
+            System.exit(1);
+        }
+    }
+
+    /**
+     * A rodada de aquecimento deixa a JVM compilar o código antes da medição;
+     * sem ela, o primeiro modo medido sairia prejudicado.
+     */
+    private static Medicao medir(List<Viagem> lote, Function<List<Viagem>, Stream<Viagem>> fonte) {
+        for (int i = 0; i < RODADAS_AQUECIMENTO; i++) {
+            PipelineTelemetria.agregar(lote, fonte);
+        }
+
+        Map<Categoria, ResumoCategoria> resultado = Map.of();
+        long totalNanos = 0;
+        for (int i = 0; i < RODADAS_MEDIDAS; i++) {
+            long inicio = System.nanoTime();
+            resultado = PipelineTelemetria.agregar(lote, fonte);
+            totalNanos += System.nanoTime() - inicio;
+        }
+        return new Medicao(resultado, totalNanos / (double) RODADAS_MEDIDAS / 1_000_000.0);
     }
 
     /**

@@ -461,15 +461,15 @@ Formato: `%-18s | viagens: %6d | km: %8d | consumo: %10.1f | alertas: %6d`. É o
 - **Saída:**
 
 ```
-Van elétrica       | viagens:  30012 | km: 1878634 | consumo: 939317.0 | alertas: 14820
-Bicicleta elétrica | viagens:  69988 | km: 4378022 | consumo: 875604.4 | alertas:   812
-Tempo médio sequencial: 42.3 ms
-Tempo médio paralelo:   18.7 ms
+Van elétrica       | viagens:  29922 | km:  1867159 | consumo:   933579.5 | alertas:   6882
+Bicicleta elétrica | viagens:  70078 | km:  4393263 | consumo:   878652.6 | alertas:    479
+Tempo médio sequencial: 11.8 ms
+Tempo médio paralelo:   7.1 ms
 Resultados idênticos: SIM
 Observação: tempos variam conforme a máquina e não representam desempenho de produção.
 ```
 
-Os números acima são **ilustrativos**. Os reais saem da execução.
+Os totais acima são os reais da semente 376 e se repetem em toda execução. Os tempos são de uma execução local e mudam a cada rodada e de máquina para máquina.
 - **Estado de falha:** se não forem iguais, imprime `Resultados idênticos: NÃO` e encerra com `System.exit(1)`, para que o workflow falhe.
 
 ### 15.3 Módulo `verificacao` — saída de `verificacao.VerificacaoRegras`

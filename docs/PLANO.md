@@ -132,7 +132,7 @@ Comparar os modos sequencial e paralelo sobre 100.000 viagens, provando que o re
 - Execução total do programa em poucos segundos no ambiente local.
 - Commit: `Adiciona comparação sequencial x paralelo no lote grande`.
 
-### Status: Não iniciada
+### Status: Concluída (08/11/2026)
 
 ---
 
