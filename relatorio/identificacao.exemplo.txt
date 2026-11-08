@@ -1,0 +1,6 @@
+nome_completo=
+ra=
+autor_assinatura=Antonio Santos
+empresa=SAN SOLUÇÕES
+repositorio_url=
+actions_url=
