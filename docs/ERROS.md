@@ -55,3 +55,19 @@ Busquei sementes cujo lote de 10 tivesse de 3 a 4 vans, 2 a 3 críticas e a prim
 
 ### Como evitar no futuro
 Quando um dado simulado sustenta uma demonstração, conferir a saída gerada antes de fixar o parâmetro na especificação. Se o autor quiser zerar o aviso, a opção mais limpa é declarar `public final void setAutonomiaBateria(double bateria)` em `Veiculo`, o que também impede subclasses de burlar a validação. Isso exige aprovação, porque altera o FSD.
+
+---
+
+## 08/11/2026 — Workflow inválido: `: ` dentro de valor YAML sem aspas
+
+### Sintoma
+No primeiro push (`edd5592`), o GitHub Actions marcou a execução como `failure` sem rodar nenhum job. O nome exibido foi o caminho do arquivo (`.github/workflows/executar.yml`) em vez de "Executar e verificar".
+
+### Causa
+Os passos de conferência usavam `run: grep -q "Van elétrica: 75.0%" ...` e `run: grep -q "Resultados idênticos: SIM" ...`. Em YAML, um valor sem aspas (escalar simples) não pode conter `: `, que é interpretado como início de um novo par chave/valor. O arquivo inteiro ficou inválido. A simulação local rodou os comandos no shell, mas não leu o YAML, então não pegou o problema.
+
+### Solução aplicada
+Os dois `run` passaram a usar bloco literal (`run: |`), com o comando na linha seguinte. O arquivo foi validado com PyYAML (instalado só na pasta temporária) antes do novo push.
+
+### Como evitar no futuro
+Sempre validar o workflow com um parser YAML antes do push, além de rodar os comandos. Em `run:` com `: `, `#` ou aspas no texto, usar `run: |`.

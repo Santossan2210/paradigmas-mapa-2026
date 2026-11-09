@@ -32,13 +32,16 @@ jobs:
         run: java -Dstdout.encoding=UTF-8 -cp out telemetria.Main | tee saida_telemetria.txt
 
       - name: Conferir módulo OO
-        run: grep -q "Van elétrica: 75.0%" saida_telemetria.txt && grep -q "Bicicleta elétrica: 90.0%" saida_telemetria.txt
+        # Bloco literal (|): o texto conferido contém ": ", que o YAML não aceita em valor sem aspas
+        run: |
+          grep -q "Van elétrica: 75.0%" saida_telemetria.txt && grep -q "Bicicleta elétrica: 90.0%" saida_telemetria.txt
 
       - name: Executar módulo funcional
         run: java -Dstdout.encoding=UTF-8 -cp out processamento.ProcessamentoMain | tee saida_processamento.txt
 
       - name: Conferir módulo funcional
-        run: grep -q "Resultados idênticos: SIM" saida_processamento.txt
+        run: |
+          grep -q "Resultados idênticos: SIM" saida_processamento.txt
 
       - name: Verificar regras
         run: java -Dstdout.encoding=UTF-8 -cp out verificacao.VerificacaoRegras | tee saida_verificacao.txt
