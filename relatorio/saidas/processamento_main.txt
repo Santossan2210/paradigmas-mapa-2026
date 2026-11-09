@@ -1,0 +1,38 @@
+
+=== Lote pequeno — 10 viagens ===
+#01 | Bicicleta elétrica |  72 km | bateria 73% -> 58.6% | consumo 14.4 | CRÍTICA: não
+#02 | Bicicleta elétrica |  87 km | bateria 90% -> 72.6% | consumo 17.4 | CRÍTICA: não
+#03 | Van elétrica       |  98 km | bateria 46% -> 0.0% | consumo 49.0 | CRÍTICA: sim
+#04 | Van elétrica       |  67 km | bateria 45% -> 11.5% | consumo 33.5 | CRÍTICA: sim
+#05 | Bicicleta elétrica |  13 km | bateria 95% -> 92.4% | consumo 2.6 | CRÍTICA: não
+#06 | Van elétrica       | 115 km | bateria 88% -> 30.5% | consumo 57.5 | CRÍTICA: não
+#07 | Bicicleta elétrica |  60 km | bateria 87% -> 75.0% | consumo 12.0 | CRÍTICA: não
+#08 | Van elétrica       |  71 km | bateria 40% -> 4.5% | consumo 35.5 | CRÍTICA: sim
+#09 | Bicicleta elétrica | 107 km | bateria 75% -> 53.6% | consumo 21.4 | CRÍTICA: não
+#10 | Bicicleta elétrica |  90 km | bateria 71% -> 53.0% | consumo 18.0 | CRÍTICA: não
+
+=== Seleção — viagens críticas (< 20%) ===
+#03 | Van elétrica       |  98 km | bateria 46% -> 0.0% | consumo 49.0 | CRÍTICA: sim
+#04 | Van elétrica       |  67 km | bateria 45% -> 11.5% | consumo 33.5 | CRÍTICA: sim
+#08 | Van elétrica       |  71 km | bateria 40% -> 4.5% | consumo 35.5 | CRÍTICA: sim
+Total de viagens críticas: 3
+
+=== Avaliação preguiçosa ===
+Pipeline montado. Nenhuma viagem foi calculada até aqui.
+  calculando viagem #01
+  calculando viagem #02
+  calculando viagem #03
+Primeira viagem crítica encontrada: #03
+Viagens calculadas: 3 de 10
+
+=== Agregação por categoria — lote pequeno ===
+Van elétrica       | viagens:      4 | km:      351 | consumo:      175.5 | alertas:      3
+Bicicleta elétrica | viagens:      6 | km:      429 | consumo:       85.8 | alertas:      0
+
+=== Lote grande — 100000 viagens: sequencial × paralelo ===
+Van elétrica       | viagens:  29922 | km:  1867159 | consumo:   933579.5 | alertas:   6882
+Bicicleta elétrica | viagens:  70078 | km:  4393263 | consumo:   878652.6 | alertas:    479
+Tempo médio sequencial: 5.2 ms
+Tempo médio paralelo:   2.0 ms
+Resultados idênticos: SIM
+Observação: tempos variam conforme a máquina e não representam desempenho de produção.

@@ -160,7 +160,7 @@ Publicar o código no repositório público e comprovar a execução em ambiente
 - As saídas e a evidência estão versionadas.
 - Commit: `Adiciona workflow de execução remota e evidências`.
 
-### Status: Não iniciada
+### Status: Concluída (08/11/2026)
 
 ---
 

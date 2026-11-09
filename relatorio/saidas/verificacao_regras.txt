@@ -1,0 +1,12 @@
+[OK] RN01 negativo
+[OK] RN01 acima de 100
+[OK] RN01 limite inferior
+[OK] RN01 meio
+[OK] RN01 limite superior
+[Van elétrica] Distância percorrida: 50.0 km | Bateria restante: 75.0%
+[OK] RN02 van 50 km
+[Bicicleta elétrica] Distância percorrida: 50.0 km | Bateria restante: 90.0%
+[OK] RN03 bicicleta 50 km
+[Van elétrica] Distância percorrida: 100.0 km | Bateria restante: 0.0%
+[OK] RN04 esgotamento
+Verificação concluída: 8/8 casos OK
