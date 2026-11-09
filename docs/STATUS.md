@@ -2,7 +2,7 @@
 
 ## Última atualização: 08/11/2026
 
-## Fase atual: Fase 4 concluída. Próxima: Fase 5 — Relatório `.docx`
+## Fase atual: todas as fases do PLANO concluídas. Próxima: revisão de segurança (`vibe-revisao-seguranca`)
 
 ## Progresso por fase
 
@@ -13,7 +13,7 @@
 | 2 | Módulo funcional: núcleo | **Concluída**: `Categoria`, 3 records, `CalculoViagem`, `GeradorLote` (semente 376), `PipelineTelemetria` e as seções §15.2.1 a §15.2.4. Saída determinística; 10 linhas e totais conferidos de forma independente; 3 críticas; a avaliação preguiçosa para em 3 de 10 |
 | 3 | Módulo funcional: complementar | **Concluída**: seção §15.2.5 com 100.000 viagens, 1 aquecimento e 5 rodadas medidas por modo, `Resultados idênticos: SIM` e `System.exit(1)` se diferirem. Programa inteiro roda em cerca de 1,3 s; totais iguais em execuções seguidas |
 | 4 | Repositório GitHub e CI | **Concluída**: repositório público `Santossan2210/paradigmas-mapa-2026`, `origin` configurado, workflow `executar.yml` aprovado (execução nº 2, commit `917eac4`); saídas remotas em `relatorio/saidas/` (iguais às locais, exceto tempos) e captura em `relatorio/evidencias/actions_aprovado.png` |
-| 5 | Relatório `.docx` | Não iniciada |
+| 5 | Relatório `.docx` | **Concluída (parte técnica)**: `gerar_relatorio.py` e os 10 arquivos de `conteudo/`. Geração testada com identificação provisória (depois apagada): 22 páginas, aberto e exportado pelo Word, Tarefa 3 com 177 palavras (cerca de 16 linhas), Partes I e II em página nova. Erros testados: sem identificação, campo vazio, arquivo faltando |
 
 ## Ambiente
 - JDK Temurin 21.0.13 instalado; `JAVA_HOME` configurado.
@@ -54,5 +54,17 @@
 ## Pendências do autor (Fase 4)
 - Preencher `repositorio_url` e `actions_url` em `relatorio/identificacao.local.txt` (não versionado).
 
+## Observações da Fase 5
+- `python-docx==1.1.2` instalado no Python do usuário. PyYAML e PyMuPDF (usados só para validar) ficaram na pasta temporária da sessão, fora do projeto.
+- Os títulos do modelo padrão do Word usavam a fonte do tema (Calibri); o script remove essa referência para que tudo saia em Arial.
+- As citações de TOKUMOTO (2022) foram conferidas no Livro.pdf (paradigma funcional e linguagens como Haskell, Lisp, ML e Scheme; lambdas no Java 8; funções puras e efeitos colaterais; classes abstratas; imutabilidade e paralelismo em Clojure; dificuldade de aprender outro paradigma). Avaliação preguiçosa e funções de ordem superior não estão no livro e não são atribuídas a ele. Não há cópia literal.
+- Linhas de código com mais de cerca de 95 caracteres quebram no `.docx` (Consolas 9, margens de 2,5 cm).
+- A referência sai sem destaque no título da obra, porque a marcação da §15.4 não tem negrito/itálico em linha; o autor pode aplicar no Word.
+
+## Pendências do autor (Fase 5)
+- Criar e preencher `relatorio/identificacao.local.txt` e rodar `python relatorio/gerar_relatorio.py`.
+- Revisar e reescrever os textos de `relatorio/conteudo/` com as próprias palavras.
+- Verificar a política da UniCesumar sobre uso de IA.
+
 ## Próxima ação recomendada
-Iniciar a Fase 5 (`docs/PLANO.md`): `gerar_relatorio.py`, os 10 arquivos de `relatorio/conteudo/`, instalação do `python-docx` e geração do `.docx`. Antes, o autor preenche `relatorio/identificacao.local.txt`.
+Todas as fases do PLANO.md foram concluídas. Próximo passo: skill `vibe-revisao-seguranca`.

@@ -17,3 +17,15 @@ java -Dstdout.encoding=UTF-8 -cp out verificacao.VerificacaoRegras
 ```
 
 No PowerShell, coloque a opção entre aspas: `java "-Dstdout.encoding=UTF-8" -cp out telemetria.Main`.
+
+## Gerar o relatório (.docx)
+
+1. Copie `relatorio/identificacao.exemplo.txt` para `relatorio/identificacao.local.txt` e preencha os campos. Esse arquivo não é versionado.
+2. Na raiz do repositório:
+
+```
+pip install -r relatorio/requirements.txt
+python relatorio/gerar_relatorio.py
+```
+
+O arquivo é gravado em `relatorio/gerado/`, que também não é versionado.

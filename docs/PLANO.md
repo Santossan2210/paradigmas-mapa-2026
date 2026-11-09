@@ -189,4 +189,4 @@ Gerar o arquivo único de entrega, com a Parte I (Tarefas 1 a 3) e a Parte II (T
 - O autor revisou e reescreveu o texto com as próprias palavras e verificou a política de IA da UniCesumar.
 - Commit: `Adiciona gerador e conteúdo do relatório`. O `.docx` em si não é versionado.
 
-### Status: Não iniciada
+### Status: Concluída (08/11/2026) — parte técnica. Pendentes do autor: preencher `identificacao.local.txt`, gerar o `.docx` final, revisar e reescrever o texto com as próprias palavras e verificar a política de IA da UniCesumar.

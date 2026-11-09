@@ -1,0 +1,3 @@
+# Referências
+
+TOKUMOTO, Ronie Cesar. Paradigmas de Linguagem de Programação. Maringá: Unicesumar, 2022. Reimpresso em 2023.

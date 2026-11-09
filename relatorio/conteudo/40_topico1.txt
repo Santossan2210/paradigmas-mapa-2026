@@ -1,0 +1,17 @@
+# Parte II — O paradigma funcional no processamento paralelo de dados
+
+Esta parte analisa o uso do paradigma funcional em um sistema que precisa fazer cálculos complexos e processar dados em paralelo, mantendo a consistência dos resultados e reduzindo efeitos colaterais. O enunciado não define um cenário concreto; por isso a SAN SOLUÇÕES adotou como cenário o processamento das viagens da frota EcoFleet, já apresentada na Parte I (premissa P00, detalhada no Tópico 3).
+
+## Tópico 1 — Conceitos do paradigma funcional
+
+O paradigma funcional organiza o programa como a aplicação e a composição de funções, no sentido matemático: cada função recebe valores e devolve um valor novo. Em vez de descrever passo a passo como o estado do programa muda, como no estilo imperativo, o programador descreve que transformações os dados devem sofrer. Linguagens como Haskell, Lisp, ML e Scheme têm o paradigma funcional como base; outras, como Java a partir da versão 8, incorporaram recursos funcionais, como as expressões lambda, e passaram a ser multiparadigma (TOKUMOTO, 2022). Quatro características sustentam o paradigma.
+
+Imutabilidade. Um dado, depois de criado, não é alterado; quando algo precisa "mudar", cria-se um novo valor a partir do anterior. Isso importa porque elimina uma das maiores fontes de erro em software: um trecho de código modificar um dado que outro trecho ainda está usando. Um dado imutável pode ser lido por várias partes do programa, inclusive ao mesmo tempo, sem risco de inconsistência, e o programador não precisa rastrear quem alterou o quê.
+
+Funções puras. Uma função é pura quando o resultado depende apenas dos parâmetros recebidos e quando ela não produz efeitos colaterais, isto é, não altera variáveis externas, não grava arquivos e não depende de relógio ou de estado global. A importância está na previsibilidade: a mesma entrada sempre gera a mesma saída. Uma função que consulta uma variável global, por exemplo, deixa de ser pura, porque o resultado passa a depender de um dado que ela não controla (TOKUMOTO, 2022). Isso torna a função fácil de testar isoladamente, permite trocar a chamada pelo seu resultado sem mudar o comportamento do programa e permite executar várias chamadas em qualquer ordem, ou ao mesmo tempo.
+
+Avaliação preguiçosa. Uma expressão só é calculada quando o seu resultado é realmente necessário. Isso importa por eficiência: se o programa precisa apenas do primeiro item que atende a uma condição, não há por que processar a coleção inteira. Também torna possível descrever sequências muito grandes, ou até infinitas, e consumir só a parte necessária.
+
+Funções de ordem superior. São funções que recebem outras funções como parâmetro ou devolvem funções como resultado. Elas importam porque permitem separar o "o que fazer" do "como percorrer": operações como map, filter e reduce já sabem percorrer uma coleção e recebem como parâmetro apenas a regra a aplicar. O resultado é um código mais curto, com menos repetição e mais fácil de recombinar.
+
+Essas características se reforçam: funções puras sobre dados imutáveis podem ser adiadas (avaliação preguiçosa), combinadas por funções de ordem superior e distribuídas entre vários processadores sem mudar o resultado — exatamente o que um sistema de cálculo paralelo precisa.

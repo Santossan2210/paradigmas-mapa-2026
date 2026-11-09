@@ -1,0 +1,9 @@
+## Tarefa 3 — Justificativa
+
+O método setAutonomiaBateria é a única porta de entrada para alterar a bateria. Ele testa se o valor recebido está abaixo de 0.0 ou acima de 100.0; nesses casos grava 0.0, e nos demais grava o próprio valor. Como o atributo é private, nenhuma classe consegue escapar dessa verificação, e o defeito do protótipo antigo deixa de existir.
+
+A superclasse Veiculo concentra o que é comum à frota: os atributos de identificação, o acesso à bateria e a validação. As subclasses reaproveitam tudo isso pela herança e escrevem apenas a regra de consumo. Se a validação mudar, a alteração é feita em um só lugar.
+
+Em registrarViagem, a distância recebida é multiplicada pela taxa do veículo (0.5 para a van, 0.2 para a bicicleta) e o resultado é subtraído da bateria atual. O novo valor é gravado por setAutonomiaBateria; assim, se a viagem esgotar a bateria, o valor negativo vira 0.0.
+
+O construtor de cada subclasse preenche os atributos protected e passa a bateria inicial por setAutonomiaBateria. Dessa forma, o objeto já nasce em um estado válido.

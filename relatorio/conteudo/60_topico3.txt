@@ -1,0 +1,89 @@
+## Tópico 3 — Exemplo prático de processamento de dados
+
+Linguagem adotada: Java 21, com os recursos funcionais da biblioteca padrão — Streams (java.util.stream), expressões lambda, referências a método, records (tipos imutáveis) e a interface Function. Java foi escolhida pela continuidade com a Parte I: o mesmo cenário e as mesmas regras de consumo aparecem agora resolvidos com outro paradigma, o que permite comparar os dois na prática. O exemplo não usa nenhuma biblioteca externa.
+
+## Premissas da solução
+
+O enunciado não define dados nem regras para o exemplo. As premissas abaixo são decisões da SAN SOLUÇÕES e estão declaradas aqui para deixar claro o que é exigência do trabalho e o que é escolha do projeto.
+
+[[TABELA]]
+Código | Premissa
+P00 | O cenário é o processamento das viagens da frota EcoFleet (vans e bicicletas elétricas), o mesmo da Parte I. Trocar o cenário não afeta o atendimento aos tópicos.
+P01 | Uma viagem é crítica quando termina com bateria abaixo de 20%. Exatamente 20% não é crítica.
+P02 | O lote de viagens é simulado e sempre igual a cada execução (semente fixa 376): cerca de 30% vans e 70% bicicletas, distância de 5 a 120 km e bateria inicial de 40% a 100%.
+P03 | O processamento sequencial e o paralelo devem produzir totais idênticos.
+P04 | Os dados de entrada nunca são alterados; cada etapa produz dados novos.
+P05 | O cálculo de uma viagem depende apenas dos dados dela, sem ler ou alterar dados compartilhados.
+[[/TABELA]]
+
+## Estrutura do pipeline
+
+O exemplo segue o fluxo dados de entrada → transformar → selecionar → agregar → resultado final:
+
+- Dados de entrada: uma lista imutável de viagens (record Viagem), gerada pela classe GeradorLote.
+- Transformar (map): cada viagem vira um ResultadoViagem com o consumo, a bateria final e a indicação de viagem crítica, calculados pela função pura CalculoViagem.calcular.
+- Selecionar (filter): ficam apenas as viagens críticas.
+- Agregar (reduce): as viagens de cada categoria são combinadas em um ResumoCategoria com o número de viagens, os quilômetros, o consumo total e a quantidade de alertas.
+- Resultado final: os totais por categoria.
+
+## Código
+
+Tipos de dados. A categoria guarda a taxa de consumo; os três records representam a viagem, o resultado do cálculo e o resumo acumulado.
+
+[[CODIGO:src/processamento/Categoria.java]]
+
+[[CODIGO:src/processamento/Viagem.java]]
+
+[[CODIGO:src/processamento/ResultadoViagem.java]]
+
+[[CODIGO:src/processamento/ResumoCategoria.java]]
+
+Regra de consumo como função pura:
+
+[[CODIGO:src/processamento/CalculoViagem.java]]
+
+O pipeline:
+
+[[CODIGO:src/processamento/PipelineTelemetria.java]]
+
+## Como o código funciona
+
+CalculoViagem.calcular recebe uma viagem e devolve um resultado novo: multiplica a distância pela taxa da categoria, subtrai da bateria inicial e aplica a mesma validação da Parte I (valor fora de 0 a 100 vira 0). O método não lê nem altera nada fora dos seus parâmetros.
+
+PipelineTelemetria recebe, além das viagens, um parâmetro "fonte": uma função que transforma a lista em um fluxo (stream). Passando SEQUENCIAL (List::stream) ou PARALELO (List::parallelStream), o mesmo pipeline roda em uma única linha de execução ou dividido entre os núcleos do processador, sem alterar nenhuma linha das etapas.
+
+O método agregar monta, para cada categoria, um fluxo que filtra as viagens daquela categoria, calcula cada uma, converte cada resultado em um resumo unitário e combina todos com reduce. O reduce parte de um resumo zerado (a identidade) e usa ResumoCategoria.combinar, que soma dois resumos e devolve um terceiro. Como a soma é associativa, o Java pode combinar os pedaços em qualquer ordem no modo paralelo e o total continua o mesmo. Os totais são guardados em números inteiros (long), com o consumo em centésimos, para que a soma seja exata: com números de ponto flutuante, somar em ordens diferentes pode mudar a última casa decimal.
+
+Um detalhe de projeto: agregar parte das viagens originais, e não do resultado de transformar ou da lista de críticas. Os totais devem valer para todas as viagens, e cada execução precisa ser um pipeline completo para a comparação entre os modos ser justa. Recalcular é seguro porque calcular é uma função pura.
+
+A classe ProcessamentoMain (disponível no repositório) usa o pipeline em duas situações: um lote de 10 viagens, exibido viagem a viagem, e um lote de 100.000 viagens, processado nos dois modos para comparar resultado e tempo. Ela também mostra a avaliação preguiçosa: monta um fluxo com map e filter, imprime que nada foi calculado ainda e só então pede a primeira viagem crítica com findFirst. A saída mostra que o Java calculou apenas as viagens 1, 2 e 3 e parou ao encontrar a primeira crítica, sem processar as outras sete. (Nessa demonstração, o peek serve só para imprimir qual viagem está sendo calculada; ele não altera nenhum dado.)
+
+## Onde está cada conceito
+
+[[TABELA]]
+Conceito | Onde aparece no código
+Imutabilidade | records Viagem, ResultadoViagem e ResumoCategoria; listas de toList() e List.copyOf; combinar devolve um objeto novo
+Função pura | CalculoViagem.calcular, CalculoViagem.ehCritica, ResumoCategoria.combinar
+Avaliação preguiçosa | Seção "Avaliação preguiçosa" da saída: map + filter + findFirst calculam só o necessário
+Função de ordem superior | transformar e agregar recebem a função "fonte"; map, filter e reduce recebem funções como parâmetro
+MAP (transformar) | .map(CalculoViagem::calcular) e .map(ResumoCategoria::de)
+FILTER (selecionar) | .filter(ResultadoViagem::critica) e o filtro por categoria
+REDUCE (agregar) | .reduce(ResumoCategoria.vazio(categoria), ResumoCategoria::combinar)
+Paralelismo seguro | PARALELO = List::parallelStream com o mesmo pipeline; igualdade comprovada na saída
+[[/TABELA]]
+
+## Saída da execução
+
+Saída de ProcessamentoMain na execução remota. As viagens #03, #04 e #08 terminaram abaixo de 20% e foram selecionadas; no lote de 100.000 viagens, os totais sequenciais e paralelos foram idênticos.
+
+[[SAIDA:relatorio/saidas/processamento_main.txt]]
+
+## Teste em ambiente remoto gratuito
+
+O código foi testado no GitHub Actions, serviço gratuito de integração contínua para repositórios públicos. A cada envio ao repositório, um servidor Linux instala o Java 21, compila os três programas, executa cada um e confere automaticamente as linhas esperadas na saída (75.0%, 90.0% e "Resultados idênticos: SIM"). Se alguma conferência falhar, a execução fica vermelha. As saídas mostradas neste documento foram baixadas da execução aprovada abaixo.
+
+[[IMAGEM:relatorio/evidencias/actions_aprovado.png]]
+
+Repositório: {{repositorio_url}}
+
+Execução aprovada: {{actions_url}}

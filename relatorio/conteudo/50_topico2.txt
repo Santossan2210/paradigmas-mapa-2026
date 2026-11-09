@@ -1,0 +1,31 @@
+## Tópico 2 — Paradigma funcional × paradigma imperativo
+
+No paradigma imperativo, o programa é uma sequência de comandos que alteram o estado da memória: variáveis recebem novos valores, laços repetem instruções e o resultado é construído aos poucos. No paradigma funcional, o programa descreve transformações sobre dados que não mudam. A tabela resume as diferenças nos aspectos mais relevantes para o cenário.
+
+[[TABELA]]
+Aspecto | Imperativo | Funcional
+Organização do código | Sequência de comandos, laços e desvios; o "como fazer" fica explícito | Composição de funções (transformar, selecionar, agregar); o "o que fazer" fica explícito
+Estado | Variáveis e objetos alterados durante a execução | Dados imutáveis; cada etapa gera dados novos
+Concorrência | Estado compartilhado exige sincronização (bloqueios), sujeita a condições de corrida | Sem estado compartilhado mutável, as tarefas podem rodar em paralelo sem bloqueios
+Previsibilidade | O resultado pode depender da ordem de execução e do estado anterior | Mesma entrada, mesma saída, em qualquer ordem
+Depuração | Fácil acompanhar passo a passo, mas é preciso rastrear mudanças de estado | Cada função pode ser testada isoladamente; o fluxo de um pipeline é menos óbvio no depurador
+Aprendizado | Mais próximo da forma como a maioria aprende a programar | Exige outra forma de pensar (recursão, composição, ausência de atribuição)
+[[/TABELA]]
+
+## Vantagens e desvantagens no cenário EcoFleet
+
+O sistema da EcoFleet precisa calcular o consumo de bateria de um volume grande de viagens e consolidar totais por tipo de veículo. Nesse contexto, o paradigma funcional traz vantagens claras:
+
+- Cada viagem é calculada de forma independente, por uma função pura. Isso permite dividir o lote entre vários processadores sem nenhuma coordenação entre eles.
+- Os dados de entrada não são alterados. Uma mesma lista de viagens pode alimentar o relatório de críticas e o de totais ao mesmo tempo, sem que um interfira no outro.
+- O pipeline transformar → selecionar → agregar é lido quase como a própria regra de negócio, o que facilita a revisão por outra pessoa da equipe.
+- Os testes são simples: basta chamar a função com uma viagem e comparar o resultado.
+
+Também há desvantagens, que aparecem no próprio projeto:
+
+- Criar um objeto novo a cada etapa consome mais memória do que alterar um objeto existente. Em volumes pequenos, o custo de montar o pipeline (e, principalmente, de dividir o trabalho entre núcleos) pode superar o ganho.
+- Algumas partes do problema são naturalmente imperativas. O gerador de viagens simuladas usa um sorteio que guarda estado interno e precisa ser sequencial; por isso ele foi escrito com um laço comum, fora do pipeline.
+- Há uma tensão real entre as duas partes do trabalho. Na Parte I, o enunciado exige que a bateria seja alterada por setAutonomiaBateria — um objeto mutável, adequado para representar um veículo cujo estado muda a cada viagem. Na Parte II, a mesma regra de consumo foi reescrita como função pura sobre registros imutáveis (records). A taxa de consumo aparece, portanto, em dois lugares. Essa duplicação foi uma escolha consciente: reaproveitar as classes da Parte I traria estado mutável para dentro do pipeline e anularia a garantia de que o processamento paralelo dá sempre o mesmo resultado.
+- A equipe precisa dominar lambdas, referências a método e streams, o que tem uma curva de aprendizado (discutida no Tópico 5).
+
+Em síntese, o modelo imperativo/orientado a objetos é natural para representar o veículo e o seu estado ao longo do tempo; o modelo funcional é mais adequado para processar em lote as viagens já registradas.

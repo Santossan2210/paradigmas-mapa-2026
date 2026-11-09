@@ -1,0 +1,20 @@
+## Tópico 4 — Aplicabilidade ao cenário
+
+O cenário pede cálculos repetidos sobre um grande volume de dados, de preferência em paralelo, com resultados consistentes. Cada um dos aspectos abaixo foi observado no exemplo.
+
+Processamento paralelo. No exemplo, passar de sequencial para paralelo exigiu apenas trocar a função de origem do fluxo (List::stream por List::parallelStream). O restante do pipeline ficou igual. Isso só é possível porque nenhuma etapa depende de algo que outra etapa esteja alterando.
+
+Como a imutabilidade e as funções puras favorecem o paralelismo. No processamento paralelo, várias linhas de execução trabalham ao mesmo tempo. Se elas compartilham um dado que pode ser alterado — por exemplo, um contador de alertas —, duas linhas podem ler o mesmo valor, somar 1 e gravar, e um dos incrementos se perde (condição de corrida). A solução imperativa é proteger o dado com bloqueios, o que faz as linhas esperarem umas pelas outras e reduz o ganho do paralelismo. No exemplo, isso não acontece por dois motivos:
+
+- Imutabilidade: as viagens e os resultados são records que ninguém consegue alterar. Várias linhas podem ler a mesma lista ao mesmo tempo sem risco, e não há o que bloquear.
+- Funções puras: calcular uma viagem não depende de nenhuma outra nem altera nada fora dela. O Java pode dividir a lista em pedaços, entregar cada pedaço a um núcleo e combinar os resumos parciais no final, em qualquer ordem. Como combinar também é puro e associativo, a ordem da combinação não altera o total.
+
+Esse é o mesmo argumento usado por linguagens funcionais modernas, como Clojure, que apostam em dados imutáveis e funções puras justamente para aproveitar processadores de vários núcleos em aplicações concorrentes (TOKUMOTO, 2022). O resultado é verificável: no lote de 100.000 viagens, os modos sequencial e paralelo chegaram exatamente aos mesmos totais (29.922 viagens de van e 70.078 de bicicleta, com 6.882 e 479 alertas), e o programa compara os dois resultados automaticamente.
+
+Grandes volumes. A frota gera muitos registros de viagem por dia. Um pipeline funcional descreve o processamento de uma viagem e aplica a mesma regra a qualquer quantidade, sem alterar o código. O programa não precisa de variáveis acumuladoras nem de índices de laço, que são fontes comuns de erro quando o volume cresce.
+
+Pipelines de transformação. As regras da EcoFleet formam uma cadeia natural: calcular o consumo, identificar as viagens críticas e totalizar por tipo de veículo. Cada etapa é uma operação separada (map, filter, reduce), que pode ser lida, testada e substituída isoladamente. Incluir uma nova regra, como um alerta de viagem muito longa, significa acrescentar uma etapa, e não reescrever um laço.
+
+Redução de efeitos colaterais. O efeito colateral do sistema, que é imprimir na tela, fica concentrado na classe principal. O cálculo em si não escreve em lugar nenhum. Isso evita a situação em que uma rotina altera, sem querer, um dado usado por outra.
+
+Previsibilidade e confiabilidade. Com o lote fixo, duas execuções seguidas produzem a mesma saída (exceto os tempos medidos), tanto na máquina local quanto no servidor do GitHub Actions. Essa previsibilidade permite que a verificação seja automatizada: o próprio servidor confere as linhas esperadas a cada envio. Para a EcoFleet, isso significa que um relatório de consumo pode ser refeito a qualquer momento e dará o mesmo número, independentemente de quantos processadores forem usados.
