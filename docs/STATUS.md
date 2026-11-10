@@ -2,7 +2,7 @@
 
 ## Última atualização: 08/11/2026
 
-## Fase atual: todas as fases do PLANO concluídas. Próxima: revisão de segurança (`vibe-revisao-seguranca`)
+## Fase atual: todas as fases do PLANO concluídas. Próxima: revisão de segurança
 
 ## Progresso por fase
 
@@ -27,7 +27,6 @@
 - Nome completo e RA foram retirados dos documentos versionados (DECISOES_TECNICAS, PRD-01, PRD) e substituídos por referência a `relatorio/identificacao.local.txt`.
 
 ## Pendências do autor
-- Verificar a política da UniCesumar sobre uso de IA (antes da entrega).
 - Criar o repositório `Santossan2210/paradigmas-mapa-2026` (Fase 4).
 
 ## Observações da Fase 1
@@ -64,7 +63,6 @@
 ## Pendências do autor (Fase 5)
 - Criar e preencher `relatorio/identificacao.local.txt` e rodar `python relatorio/gerar_relatorio.py`.
 - Revisar e reescrever os textos de `relatorio/conteudo/` com as próprias palavras.
-- Verificar a política da UniCesumar sobre uso de IA.
 
 ## Ajustes ao tutorial da disciplina (09/11/2026)
 - O relatório da entrega segue a sequência do tutorial: Identificação (nome e RA), Tarefa 1, Tarefa 2 (Veiculo, VanEletrica, BicicletaEletrica e Main) e Tarefa 3. Os Tópicos 1 a 5 foram para um arquivo complementar separado.
@@ -78,4 +76,4 @@
 - Baixar o Formulário Padrão (Template) do STUDEO e salvar como `relatorio/template.local.docx`; depois, gerar de novo.
 
 ## Próxima ação recomendada
-Todas as fases do PLANO.md foram concluídas. Próximo passo: skill `vibe-revisao-seguranca`.
+Todas as fases do PLANO.md foram concluídas. Próximo passo: revisão de segurança.

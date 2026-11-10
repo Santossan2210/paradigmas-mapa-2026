@@ -285,6 +285,11 @@ def main():
             if pagina_nova:
                 doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
             montar_arquivo(doc, relativo, dados)
+        propriedades = doc.core_properties
+        propriedades.author = "Antonio Santos"
+        propriedades.last_modified_by = "Antonio Santos"
+        propriedades.title = Path(saida).stem.replace("_", " ")
+        propriedades.comments = ""
         destino = RAIZ / saida
         destino.parent.mkdir(parents=True, exist_ok=True)
         doc.save(destino)

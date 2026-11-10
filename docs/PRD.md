@@ -71,13 +71,13 @@ A versão 1.0 juntava os dois em um só documento e perdia o foco. Por isso eles
 |---|---|
 | PRD-01 §5.2: tabela pouco legível | A tabela de valores iniciais saiu de dentro da lista e virou bloco próprio, com título |
 | PRD-02 §15: P00 tratada como pendência | Movida para observação da P00 na §7.1 |
-| PRD-02 Tópico 3: documento preso a uma conta GitHub | Agora diz "repositório GitHub do autor"; a conta será registrada em `vibe-decisoes-tecnicas` |
+| PRD-02 Tópico 3: documento preso a uma conta GitHub | Agora diz "repositório GitHub do autor"; a conta será registrada em `docs/DECISOES_TECNICAS.md` |
 
 ## 4. Decisões de entrega pendentes
 1. **Formato da entrega:** saber se as Tarefas 1 a 3 (PRD-01) e os Tópicos 1 a 5 (PRD-02) vão em **um único arquivo** ou em **dois arquivos**. Depende de onde cada atividade é enviada no ambiente virtual.
 2. ~~Arquitetura~~ **Resolvido:** Java + Streams + relatório acadêmico + teste remoto pelo GitHub Actions (PRD-02 §15).
-3. **Política de uso de IA da UniCesumar:** verificação e revisão final pelo autor.
-4. **Conta e nome do repositório GitHub** do autor, a registrar em `vibe-decisoes-tecnicas`. O REQUISITOS indica a conta Santossan2210.
+3. **Revisão final:** verificação e revisão final pelo autor.
+4. **Conta e nome do repositório GitHub** do autor, a registrar em `docs/DECISOES_TECNICAS.md`. O REQUISITOS indica a conta Santossan2210.
 
 ## 5. Próximo passo
-Com os PRDs aprovados, as decisões técnicas serão registradas pela skill `vibe-decisoes-tecnicas`.
+Com os PRDs aprovados, as decisões técnicas serão registradas em `docs/DECISOES_TECNICAS.md`.

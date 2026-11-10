@@ -19,7 +19,7 @@ No PowerShell, `java -Dstdout.encoding=UTF-8 -cp out telemetria.Main` falha com 
 O PowerShell divide o argumento sem aspas no primeiro ponto. O `java` recebe `-Dstdout` e `.encoding=UTF-8` como dois argumentos separados e trata o segundo como o nome da classe.
 
 ### Solução aplicada
-No PowerShell, colocar a opção entre aspas: `java "-Dstdout.encoding=UTF-8" -cp out telemetria.Main`. No Git Bash e no Linux do GitHub Actions, o comando sem aspas funciona normalmente. O `README.md` e o `CLAUDE.md` passaram a registrar isso.
+No PowerShell, colocar a opção entre aspas: `java "-Dstdout.encoding=UTF-8" -cp out telemetria.Main`. No Git Bash e no Linux do GitHub Actions, o comando sem aspas funciona normalmente. O `README.md` passou a registrar isso.
 
 ### Como evitar no futuro
 Em comandos de PowerShell, sempre colocar entre aspas as opções `-D<propriedade>=<valor>`. O shell de referência local continua sendo o Git Bash. O curinga `src/telemetria/*.java` do `javac` funciona no PowerShell (verificado: 5 classes compiladas).

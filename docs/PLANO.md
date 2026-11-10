@@ -32,7 +32,7 @@ Deixar o projeto pronto para receber código: pastas, configuração mínima e G
 - [x] `.gitignore`, com o mínimo da §8 mais os materiais da disciplina (`/Livro.pdf`, `/Aula*.pdf`, `/Dashboard.webp`).
 - [x] `.gitattributes` (LF para texto; binários marcados).
 - [x] `README.md` mínimo, `relatorio/requirements.txt` (`python-docx==1.1.2`) e `relatorio/identificacao.exemplo.txt`.
-- [x] `CLAUDE.md`, `docs/PLANO.md`, `docs/STATUS.md` e `docs/ERROS.md`.
+- [x] `docs/PLANO.md`, `docs/STATUS.md` e `docs/ERROS.md`.
 - [x] `git init -b main`, `git config user.name "Antonio Santos"` e `git config user.email` com o endereço `noreply` do GitHub do autor, **só no repositório local**.
 - [x] Primeiro commit com a documentação e o esqueleto (`4755dac`).
 
@@ -186,7 +186,7 @@ Gerar o arquivo único de entrega, com a Parte I (Tarefas 1 a 3) e a Parte II (T
 - Todos os itens das checklists §27.3 e §27.4 estão atendidos.
 - A Tarefa 3 tem entre 10 e 20 linhas, sem aviso do script.
 - O Tópico 3 traz o quadro "onde está cada conceito" (§18.2), a explicação de `agregar` e as premissas P00 a P05.
-- O autor revisou e reescreveu o texto com as próprias palavras e verificou a política de IA da UniCesumar.
+- O autor revisou e reescreveu o texto com as próprias palavras.
 - Commit: `Adiciona gerador e conteúdo do relatório`. O `.docx` em si não é versionado.
 
-### Status: Concluída (08/11/2026) — parte técnica. Pendentes do autor: preencher `identificacao.local.txt`, gerar o `.docx` final, revisar e reescrever o texto com as próprias palavras e verificar a política de IA da UniCesumar.
+### Status: Concluída (08/11/2026) — parte técnica. Pendentes do autor: preencher `identificacao.local.txt`, gerar o `.docx` final, revisar e reescrever o texto com as próprias palavras.

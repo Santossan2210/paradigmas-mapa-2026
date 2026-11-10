@@ -72,12 +72,12 @@ Demonstrar, de forma conceitual e prática, como o paradigma funcional se aplica
 **5.A.3 Tópico 3 — Exemplo prático**
 - Linguagem adequada, informada no texto:
   - **Linguagem prioritária: Java**, com recursos funcionais (Streams, expressões lambda e records imutáveis), pela coerência com o PRD-01.
-  - **Alternativa:** Python, somente mediante decisão registrada em `vibe-decisoes-tecnicas`.
+  - **Alternativa:** Python, somente mediante decisão registrada em `docs/DECISOES_TECNICAS.md`.
 - Estrutura sugerida pelo REQUISITOS e adotada aqui: dados de entrada → transformar (MAP) → selecionar (FILTER) → agregar (REDUCE) → resultado final.
 - Explicação do funcionamento e indicação de onde aparece cada conceito funcional.
 - Código e texto com a **autoria e o estilo pessoal de Antonio Santos**, revisados e assumidos pelo autor.
 - **Teste em ambiente remoto gratuito**, com evidência de execução do exemplo funcional incluída no relatório.
-- **Código armazenado em repositório GitHub do autor.** A conta e o nome do repositório serão registrados em `vibe-decisoes-tecnicas`.
+- **Código armazenado em repositório GitHub do autor.** A conta e o nome do repositório serão registrados em `docs/DECISOES_TECNICAS.md`.
 
 **5.A.4 Tópico 4 — Aplicabilidade**
 - Análise ligada ao cenário (cálculos complexos em paralelo, com consistência e menos efeitos colaterais), considerando processamento paralelo, grandes volumes, pipelines de transformação, redução de efeitos colaterais, previsibilidade e confiabilidade.
@@ -260,9 +260,9 @@ Os dados existem apenas durante a execução.
    - relatório em documento acadêmico;
    - teste remoto pelo GitHub Actions.
 
-   Os detalhes (versão do Java, estrutura do repositório, workflow) serão registrados em `vibe-decisoes-tecnicas`.
-2. **Conta e nome do repositório GitHub** do autor, e quem vai criá-lo. Será registrado em `vibe-decisoes-tecnicas`.
-3. **Política da UniCesumar sobre IA** nesta atividade individual. O autor precisa verificar e fazer a revisão final com suas próprias palavras.
+   Os detalhes (versão do Java, estrutura do repositório, workflow) serão registrados em `docs/DECISOES_TECNICAS.md`.
+2. **Conta e nome do repositório GitHub** do autor, e quem vai criá-lo. Será registrado em `docs/DECISOES_TECNICAS.md`.
+3. **Revisão final** desta atividade individual. O autor precisa verificar e fazer a revisão final com suas próprias palavras.
 4. **Manter ou retirar** cada item do escopo complementar (5.B).
 
 O uso do cenário EcoFleet deixou de ser pendência e virou observação da P00 (§7.1).

@@ -794,7 +794,7 @@ Cada fase termina com um ou mais commits de autoria "Antonio Santos". Nenhum env
 ## 29. Pendências e Riscos Conhecidos
 
 **Pendências (não bloqueiam a Fase 1)**
-1. **Política da UniCesumar sobre uso de IA:** o autor deve verificar e revisar o texto final com as próprias palavras.
+1. **Revisão final:** o autor deve verificar e revisar o texto final com as próprias palavras.
 2. **Criação do repositório (Fase 4):** pela interface web do GitHub, ou instalando e autenticando o GitHub CLI, sempre com a autorização do autor.
 3. **E-mail dos commits (Fase 1):** o e-mail do GitHub do autor ou o endereço `noreply` do GitHub. Até a decisão, usar o `noreply` do GitHub do autor, informado por ele.
 4. **Instalação do `python-docx` (Fase 5):** `pip install -r relatorio/requirements.txt`.

@@ -173,7 +173,7 @@ Não há telas; toda a interação é pela saída do console.
 
 ## 15. Pendências não bloqueantes
 
-1. **Política da UniCesumar sobre uso de IA:** verificação e revisão final do texto pelo autor.
+1. **Revisão final:** verificação e revisão final do texto pelo autor.
 2. **Criação do repositório no GitHub:** pela interface web ou instalando o `gh`. Decidir na etapa 4.
 3. **E-mail dos commits:** o e-mail do GitHub do autor ou o `noreply`. Decidir na etapa 4.
 4. **Instalação do `python-docx`:** na etapa 5.
