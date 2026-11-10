@@ -1,14 +1,14 @@
 ## Tópico 3 — Exemplo prático de processamento de dados
 
-Linguagem adotada: Java 21, com os recursos funcionais da biblioteca padrão — Streams (java.util.stream), expressões lambda, referências a método, records (tipos imutáveis) e a interface Function. Java foi escolhida pela continuidade com a Parte I: o mesmo cenário e as mesmas regras de consumo aparecem agora resolvidos com outro paradigma, o que permite comparar os dois na prática. O exemplo não usa nenhuma biblioteca externa.
+Linguagem adotada: Java 21, com os recursos funcionais da biblioteca padrão — Streams (java.util.stream), expressões lambda, referências a método, records (tipos imutáveis) e a interface Function. Java foi escolhida pela continuidade com o projeto orientado a objetos da MAPA: o mesmo cenário e as mesmas regras de consumo aparecem agora resolvidos com outro paradigma, o que permite comparar os dois na prática. O exemplo não usa nenhuma biblioteca externa.
 
 ## Premissas da solução
 
-O enunciado não define dados nem regras para o exemplo. As premissas abaixo são decisões da SAN SOLUÇÕES e estão declaradas aqui para deixar claro o que é exigência do trabalho e o que é escolha do projeto.
+O enunciado não define dados nem regras para o exemplo. As premissas abaixo são decisões do autor e estão declaradas aqui para deixar claro o que é exigência do trabalho e o que é escolha do projeto.
 
 [[TABELA]]
 Código | Premissa
-P00 | O cenário é o processamento das viagens da frota EcoFleet (vans e bicicletas elétricas), o mesmo da Parte I. Trocar o cenário não afeta o atendimento aos tópicos.
+P00 | O cenário é o processamento das viagens da frota EcoFleet (vans e bicicletas elétricas), o mesmo do projeto orientado a objetos da MAPA. Trocar o cenário não afeta o atendimento aos tópicos.
 P01 | Uma viagem é crítica quando termina com bateria abaixo de 20%. Exatamente 20% não é crítica.
 P02 | O lote de viagens é simulado e sempre igual a cada execução (semente fixa 376): cerca de 30% vans e 70% bicicletas, distância de 5 a 120 km e bateria inicial de 40% a 100%.
 P03 | O processamento sequencial e o paralelo devem produzir totais idênticos.
@@ -48,7 +48,7 @@ O pipeline:
 
 ## Como o código funciona
 
-CalculoViagem.calcular recebe uma viagem e devolve um resultado novo: multiplica a distância pela taxa da categoria, subtrai da bateria inicial e aplica a mesma validação da Parte I (valor fora de 0 a 100 vira 0). O método não lê nem altera nada fora dos seus parâmetros.
+CalculoViagem.calcular recebe uma viagem e devolve um resultado novo: multiplica a distância pela taxa da categoria, subtrai da bateria inicial e aplica a mesma validação do projeto orientado a objetos da MAPA (valor fora de 0 a 100 vira 0). O método não lê nem altera nada fora dos seus parâmetros.
 
 PipelineTelemetria recebe, além das viagens, um parâmetro "fonte": uma função que transforma a lista em um fluxo (stream). Passando SEQUENCIAL (List::stream) ou PARALELO (List::parallelStream), o mesmo pipeline roda em uma única linha de execução ou dividido entre os núcleos do processador, sem alterar nenhuma linha das etapas.
 

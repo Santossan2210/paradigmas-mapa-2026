@@ -1,6 +1,8 @@
-# Parte II — O paradigma funcional no processamento paralelo de dados
+# Complemento — O paradigma funcional no processamento paralelo de dados
 
-Esta parte analisa o uso do paradigma funcional em um sistema que precisa fazer cálculos complexos e processar dados em paralelo, mantendo a consistência dos resultados e reduzindo efeitos colaterais. O enunciado não define um cenário concreto; por isso a SAN SOLUÇÕES adotou como cenário o processamento das viagens da frota EcoFleet, já apresentada na Parte I (premissa P00, detalhada no Tópico 3).
+Autor: Antonio Santos
+
+Este documento complementa o projeto da MAPA e analisa o uso do paradigma funcional em um sistema que precisa fazer cálculos complexos e processar dados em paralelo, mantendo a consistência dos resultados e reduzindo efeitos colaterais. O enunciado não define um cenário concreto; por isso o autor adotou como cenário o processamento das viagens da frota EcoFleet, já apresentada no projeto orientado a objetos da MAPA (premissa P00, detalhada no Tópico 3).
 
 ## Tópico 1 — Conceitos do paradigma funcional
 

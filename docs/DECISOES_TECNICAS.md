@@ -1,7 +1,7 @@
 # DECISÕES TÉCNICAS DO PROJETO
 
 **Projeto:** EcoFleet Solutions S.A. — Paradigmas de Linguagens de Programação (MAPA 54/2026)
-**Fornecedor:** SAN SOLUÇÕES
+**Autor:** Antonio Santos
 **Elaborado por:** Antonio Santos
 **Data:** 08/11/2026
 **Versão:** 1.0

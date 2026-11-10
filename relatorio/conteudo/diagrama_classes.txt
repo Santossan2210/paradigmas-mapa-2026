@@ -1,0 +1,28 @@
+pacote telemetria
+
+<<abstract>> Veiculo
+  # idVeiculo : int
+  # modelo : String
+  # capacidadeCarga : double
+  - autonomiaBateria : double
+  + Veiculo()
+  + getAutonomiaBateria() : double
+  + setAutonomiaBateria(bateria : double) : void
+  + registrarViagem(distancia : double) : void   {abstract}
+        ^
+        | extends (herança: "é um")
+        |
+  +-----+--------------------------------------+
+  |                                            |
+VanEletrica                                  BicicletaEletrica
+  - placaIdentificacao : String                - limiteVelocidadeAssistida : double
+  + VanEletrica(idVeiculo, modelo,             + BicicletaEletrica(idVeiculo, modelo,
+      capacidadeCarga, autonomiaBateria,           capacidadeCarga, autonomiaBateria,
+      placaIdentificacao)                          limiteVelocidadeAssistida)
+  + registrarViagem(distancia) {@Override}     + registrarViagem(distancia) {@Override}
+      consumo: 0.5 ponto por km                    consumo: 0.2 ponto por km
+
+Main
+  + main(args : String[]) : void   (cria uma van e uma bicicleta e simula 50 km)
+
+Legenda: + public   # protected   - private

@@ -1,9 +1,9 @@
-## Tarefa 3 — Justificativa
+# TAREFA 3 — JUSTIFICATIVA
 
-O método setAutonomiaBateria é a única porta de entrada para alterar a bateria. Ele testa se o valor recebido está abaixo de 0.0 ou acima de 100.0; nesses casos grava 0.0, e nos demais grava o próprio valor. Como o atributo é private, nenhuma classe consegue escapar dessa verificação, e o defeito do protótipo antigo deixa de existir.
+Validação. O método setAutonomiaBateria é o único caminho para alterar a bateria. Ele usa um if para testar se o valor recebido está abaixo de 0.0 ou acima de 100.0; nesses casos grava 0.0, e no else grava o próprio valor. Como o atributo é private, nenhuma classe, nem as subclasses, escapa dessa verificação, e o defeito do protótipo antigo deixa de acontecer.
 
-A superclasse Veiculo concentra o que é comum à frota: os atributos de identificação, o acesso à bateria e a validação. As subclasses reaproveitam tudo isso pela herança e escrevem apenas a regra de consumo. Se a validação mudar, a alteração é feita em um só lugar.
+Herança. A superclasse Veiculo concentra o que é comum à frota: os atributos de identificação, o acesso à bateria e a validação. VanEletrica e BicicletaEletrica reaproveitam tudo isso por meio de extends e escrevem apenas o que é delas: a placa, o limite de velocidade e a regra de consumo. Se a validação mudar, a alteração é feita em um só lugar.
 
-Em registrarViagem, a distância recebida é multiplicada pela taxa do veículo (0.5 para a van, 0.2 para a bicicleta) e o resultado é subtraído da bateria atual. O novo valor é gravado por setAutonomiaBateria; assim, se a viagem esgotar a bateria, o valor negativo vira 0.0.
+Processamento. Em registrarViagem, a distância recebida é multiplicada pela taxa do veículo (0.5 na van e 0.2 na bicicleta), e o resultado é subtraído da bateria atual, lida por getAutonomiaBateria. O novo valor é gravado por setAutonomiaBateria; por isso, se uma viagem longa esgotar a bateria, o valor negativo vira 0.0.
 
-O construtor de cada subclasse preenche os atributos protected e passa a bateria inicial por setAutonomiaBateria. Dessa forma, o objeto já nasce em um estado válido.
+Construtores. O construtor sem parâmetros de Veiculo começa todos os atributos com 0, 0.0 ou texto vazio. Em seguida, o construtor de cada subclasse preenche os atributos protected e passa a bateria inicial por setAutonomiaBateria. Assim, o objeto já nasce em um estado válido.

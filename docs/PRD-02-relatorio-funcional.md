@@ -1,14 +1,14 @@
 # DOCUMENTO DE REQUISITOS DO PRODUTO (PRD) 02 — Relatório Técnico: Paradigma Funcional
 
 **Projeto:** Paradigma Funcional aplicado ao Processamento de Dados de Telemetria — EcoFleet Solutions S.A.
-**Fornecedor:** SAN SOLUÇÕES
+**Autor:** Antonio Santos
 **Elaborado por:** Antonio Santos
 **Data:** 08/11/2026
 **Versão:** 1.3
 **Documento de origem:** REQUISITOS PARA DESENVOLVIMENTO DO PROJETO (= "Orientação para a Atividade de Estudos MAPA", mais as instruções do autor)
 **Índice geral:** [PRD.md](PRD.md) · **PRD base:** [PRD-01-telemetria.md](PRD-01-telemetria.md)
 
-> Este PRD separa claramente o **escopo obrigatório**, que vem do documento REQUISITOS, do **escopo complementar**, que é proposta da SAN SOLUÇÕES. Os itens complementares são apoio e podem ser retirados sem descumprir o enunciado.
+> Este PRD separa claramente o **escopo obrigatório**, que vem do documento REQUISITOS, do **escopo complementar**, que é proposta do autor. Os itens complementares são apoio e podem ser retirados sem descumprir o enunciado.
 
 ---
 
@@ -16,7 +16,7 @@
 
 Este produto é um **relatório técnico** que analisa o uso do paradigma funcional em um sistema que precisa fazer cálculos complexos e processar dados em paralelo. O relatório é organizado em **5 tópicos** e inclui um **exemplo prático de processamento de dados** com código, testado em ambiente remoto gratuito e guardado no GitHub.
 
-O documento REQUISITOS não descreve um cenário concreto. Por isso, a SAN SOLUÇÕES usa como cenário a **telemetria da frota EcoFleet** definida no [PRD-01](PRD-01-telemetria.md): o processamento de um grande volume de viagens de vans e bicicletas elétricas. Essa é a premissa P00.
+O documento REQUISITOS não descreve um cenário concreto. Por isso, o autor usa como cenário a **telemetria da frota EcoFleet** definida no [PRD-01](PRD-01-telemetria.md): o processamento de um grande volume de viagens de vans e bicicletas elétricas. Essa é a premissa P00.
 
 | Origem | Conteúdo |
 |---|---|
@@ -27,7 +27,7 @@ O documento REQUISITOS não descreve um cenário concreto. Por isso, a SAN SOLU�
 | REQUISITOS — Tópico 4 | Aplicabilidade ao cenário: paralelismo, volume, pipelines, efeitos colaterais, previsibilidade e confiabilidade |
 | REQUISITOS — Tópico 5 | Conclusão crítica: desempenho, manutenção, experiência da equipe, curva de aprendizado e adequação |
 | PRD-01 (PROJETO) | Cenário e regras de consumo reaproveitados (RN02, RN03, RN04) |
-| SAN SOLUÇÕES | Premissas P00 a P05 e escopo complementar |
+| Antonio Santos | Premissas P00 a P05 e escopo complementar |
 
 ## 2. Problema que o Sistema Resolve
 O enunciado descreve um sistema que precisa **fazer cálculos complexos e processar dados em paralelo**, mantendo a consistência e reduzindo efeitos colaterais. O relatório precisa mostrar, com argumentos e com um exemplo funcional, se o paradigma funcional é viável para esse cenário e por quê.
@@ -51,7 +51,7 @@ Demonstrar, de forma conceitual e prática, como o paradigma funcional se aplica
 |---|---|---|---|
 | Avaliador (professor) | Corrige a entrega pelo checklist | Ler o relatório, consultar o repositório e a evidência de teste | Somente leitura |
 | Equipe técnica da EcoFleet (fictícia) | Decide se adota o paradigma funcional | Ler a análise e os resultados do exemplo | Somente leitura |
-| Autor (Antonio Santos / SAN SOLUÇÕES) | Redige, desenvolve e testa | Escrever, codificar, executar, revisar e assinar | Acesso total |
+| Autor (Antonio Santos) | Redige, desenvolve e testa | Escrever, codificar, executar, revisar e assinar | Acesso total |
 
 ## 5. Escopo da Primeira Versão
 
@@ -93,7 +93,7 @@ Demonstrar, de forma conceitual e prática, como o paradigma funcional se aplica
 - **Extensão suficiente para atender integralmente os tópicos exigidos.**
 - Referência a TOKUMOTO (2022), sem cópia literal de textos.
 
-### 5.B Escopo complementar (proposta da SAN SOLUÇÕES)
+### 5.B Escopo complementar (proposta do autor)
 São itens opcionais. Servem para dar evidência concreta aos Tópicos 3, 4 e 5.
 
 | Item | Para que serve | Tópico apoiado |
@@ -123,7 +123,7 @@ As regras de cálculo reaproveitadas vêm do PRD-01 e do documento PROJETO:
 | RN04 | Bateria final = bateria inicial − (distância × taxa); se der negativo, vira 0.0. | PROJETO (via PRD-01) |
 
 ### 7.1 Premissas da Solução Funcional
-São premissas criadas pela SAN SOLUÇÕES, **não** exigidas pelos documentos oficiais. Elas aparecem declaradas como premissas no relatório.
+São premissas criadas pelo autor, **não** exigidas pelos documentos oficiais. Elas aparecem declaradas como premissas no relatório.
 
 | Código | Premissa | Antes era |
 |---|---|---|
@@ -134,7 +134,7 @@ São premissas criadas pela SAN SOLUÇÕES, **não** exigidas pelos documentos o
 | P04 | O processamento não altera os dados de entrada; cada etapa gera dados novos (imutabilidade). | RN09 |
 | P05 | O cálculo de uma viagem depende só dos dados dela, sem efeitos sobre dados compartilhados (funções puras). | RN10 |
 
-**Observação sobre a P00:** o documento REQUISITOS não fornece cenário concreto e só descreve "um sistema que precisa realizar cálculos complexos e processar dados de forma paralela". A SAN SOLUÇÕES adota a frota EcoFleet do PROJETO como cenário, pela continuidade entre os dois trabalhos. Isso é declarado no relatório como premissa. Se for removido ou trocado por outro cenário, o atendimento aos 5 tópicos não fica comprometido, por isso este ponto não é tratado como pendência.
+**Observação sobre a P00:** o documento REQUISITOS não fornece cenário concreto e só descreve "um sistema que precisa realizar cálculos complexos e processar dados de forma paralela". O autor adota a frota EcoFleet do PROJETO como cenário, pela continuidade entre os dois trabalhos. Isso é declarado no relatório como premissa. Se for removido ou trocado por outro cenário, o atendimento aos 5 tópicos não fica comprometido, por isso este ponto não é tratado como pendência.
 
 ## 8. Informações que o Sistema Precisa Controlar
 
@@ -222,7 +222,7 @@ Os dados existem apenas durante a execução.
 - [ ] A extensão é suficiente para atender todos os tópicos.
 - [ ] TOKUMOTO (2022) está referenciado, sem cópia literal.
 
-### 11.B Critérios complementares (SAN SOLUÇÕES)
+### 11.B Critérios complementares 
 - [ ] O lote simulado é igual em todas as execuções (P02).
 - [ ] Toda viagem com bateria final abaixo de 20% aparece entre as críticas, e nenhuma outra (P01).
 - [ ] Os totais sequencial e paralelo são idênticos e o sistema informa isso (P03).
@@ -275,4 +275,4 @@ O relatório responde aos 5 tópicos do REQUISITOS:
 - analisa a aplicabilidade ao cálculo paralelo;
 - conclui de forma crítica.
 
-O cenário é a frota EcoFleet (P00). Os demais itens criados pela SAN SOLUÇÕES (bateria crítica abaixo de 20%, lote simulado, comparação sequencial × paralelo e medição de tempo) ficam separados como **premissas e escopo complementar**, que podem ser retirados sem descumprir o enunciado.
+O cenário é a frota EcoFleet (P00). Os demais itens criados pelo autor (bateria crítica abaixo de 20%, lote simulado, comparação sequencial × paralelo e medição de tempo) ficam separados como **premissas e escopo complementar**, que podem ser retirados sem descumprir o enunciado.

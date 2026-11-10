@@ -1,39 +1,29 @@
-# Parte I — Telemetria da frota no paradigma orientado a objetos
+# TAREFA 1 — MODELAGEM CONCEITUAL
 
-O protótipo anterior de telemetria da EcoFleet aceitava níveis de bateria abaixo de 0 ou acima de 100, o que deixava os relatórios da frota sem confiabilidade. A SAN SOLUÇÕES reorganizou o modelo em classes, de forma que a bateria só possa ser alterada por um único ponto de entrada, que valida o valor recebido.
+O protótipo anterior de telemetria da EcoFleet aceitava níveis de bateria abaixo de 0 ou acima de 100, o que tirava a confiabilidade dos dados da frota. Para resolver isso, o sistema foi reorganizado em classes, e a bateria passou a ser alterada por um único método, que valida o valor recebido.
 
-## Tarefa 1 — Modelagem conceitual
+## Representação textual das classes
 
-O modelo tem uma superclasse abstrata, Veiculo, e duas subclasses concretas, VanEletrica e BicicletaEletrica. A classe Main apenas executa a demonstração e não faz parte da hierarquia.
+O modelo tem uma superclasse abstrata, Veiculo, e duas subclasses concretas, VanEletrica e BicicletaEletrica, todas no pacote telemetria. A classe Main só executa a simulação e não faz parte da hierarquia.
+
+[[SAIDA:relatorio/conteudo/diagrama_classes.txt]]
 
 [[TABELA]]
-Classe | Membro | Tipo | Visibilidade
+Classe | Atributo | Tipo | Visibilidade
 Veiculo (abstrata) | idVeiculo | int | protected
 Veiculo (abstrata) | modelo | String | protected
 Veiculo (abstrata) | capacidadeCarga | double | protected
 Veiculo (abstrata) | autonomiaBateria | double | private
-Veiculo (abstrata) | Veiculo() — construtor sem parâmetros | — | public
-Veiculo (abstrata) | getAutonomiaBateria() | double | public
-Veiculo (abstrata) | setAutonomiaBateria(double bateria) | void | public
-Veiculo (abstrata) | registrarViagem(double distancia) — abstrato | void | public
 VanEletrica | placaIdentificacao | String | private
-VanEletrica | construtor com os 5 dados | — | public
-VanEletrica | registrarViagem(double distancia) — sobrescrito | void | public
 BicicletaEletrica | limiteVelocidadeAssistida | double | private
-BicicletaEletrica | construtor com os 5 dados | — | public
-BicicletaEletrica | registrarViagem(double distancia) — sobrescrito | void | public
 [[/TABELA]]
 
-Relação entre as classes: VanEletrica e BicicletaEletrica herdam de Veiculo (relação "é um": uma van elétrica é um veículo). Elas recebem da superclasse os atributos comuns e os métodos de acesso à bateria, e cada uma acrescenta apenas o que é específico do seu tipo.
+Relação entre as classes: VanEletrica e BicicletaEletrica herdam de Veiculo por meio de extends. É uma relação do tipo "é um": uma van elétrica é um veículo, e uma bicicleta elétrica também. As subclasses recebem da superclasse os atributos comuns e os métodos de acesso à bateria, e cada uma acrescenta só o atributo próprio do seu tipo e a sua regra de consumo.
 
-- Veiculo (abstrata): atributos comuns, acesso validado à bateria e o método abstrato registrarViagem.
-- VanEletrica estende Veiculo: acrescenta placaIdentificacao e implementa o consumo de 0.5 por km.
-- BicicletaEletrica estende Veiculo: acrescenta limiteVelocidadeAssistida e implementa o consumo de 0.2 por km.
+## Por que Veiculo é uma classe abstrata
 
-## Por que Veiculo é abstrata
+Na frota não existe um "veículo genérico": todo veículo real é uma van ou uma bicicleta. Veiculo funciona como o modelo geral que reúne o que as duas categorias têm em comum (identificação, modelo, capacidade de carga e bateria), mas ele sozinho não sabe quanto uma viagem consome, porque a taxa depende do tipo. Por isso registrarViagem é declarado como abstrato, sem corpo, e cada subclasse é obrigada a implementá-lo. Declarar a classe como abstract impede que alguém crie um objeto incompleto (new Veiculo() não compila) e garante que qualquer tipo de veículo incluído no futuro terá de definir a sua própria regra de consumo (TOKUMOTO, 2022).
 
-Na frota não existe um "veículo genérico": todo veículo real é uma van ou uma bicicleta. Além disso, Veiculo não tem como saber quanto de bateria uma viagem consome, porque a taxa depende do tipo do veículo. Por isso registrarViagem é declarado sem corpo na superclasse e cada subclasse é obrigada a implementá-lo. Declarar a classe como abstrata impede que alguém crie um objeto incompleto (new Veiculo() não compila) e, ao mesmo tempo, garante que qualquer tipo de veículo incluído no futuro terá de definir a sua própria regra de consumo. É o uso típico de classe abstrata como molde comum de uma família de classes (TOKUMOTO, 2022).
+## Escolha dos modificadores protected e private
 
-## Diferença entre protected e private no modelo
-
-Os atributos idVeiculo, modelo e capacidadeCarga são protected: as subclasses podem atribuí-los diretamente no construtor, e isso não traz risco, porque esses dados não têm regra de validação. Já autonomiaBateria é private: nem as subclasses conseguem acessá-lo diretamente. A única forma de ler o valor é getAutonomiaBateria(), e a única forma de alterá-lo é setAutonomiaBateria(), que aplica a validação. Assim, a regra que corrige o defeito do protótipo fica em um único lugar e não pode ser contornada por nenhuma classe da hierarquia. Esse é o papel do encapsulamento: esconder o dado e expor apenas operações controladas sobre ele.
+Os atributos idVeiculo, modelo e capacidadeCarga são protected porque precisam ser compartilhados por herança: as subclasses os preenchem diretamente no construtor, e isso não traz risco, porque esses dados não têm regra de validação. Já autonomiaBateria é private: nem as subclasses conseguem acessá-lo diretamente. A única forma de ler o valor é getAutonomiaBateria(), e a única forma de alterá-lo é setAutonomiaBateria(), que aplica a validação. Assim, a regra que corrige o defeito do protótipo fica em um único lugar e não pode ser contornada. Os atributos placaIdentificacao e limiteVelocidadeAssistida também são private, porque pertencem só à sua subclasse e não precisam ser compartilhados com nenhuma outra classe.

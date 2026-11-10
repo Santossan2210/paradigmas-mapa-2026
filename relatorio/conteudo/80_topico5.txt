@@ -1,6 +1,6 @@
 ## Tópico 5 — Conclusão crítica
 
-O paradigma funcional é viável para o sistema da EcoFleet, desde que aplicado à parte certa do problema: o processamento em lote das viagens. Para representar cada veículo e o seu estado ao longo do tempo, o modelo orientado a objetos da Parte I continua sendo a escolha mais natural. A conclusão considera os aspectos a seguir.
+O paradigma funcional é viável para o sistema da EcoFleet, desde que aplicado à parte certa do problema: o processamento em lote das viagens. Para representar cada veículo e o seu estado ao longo do tempo, o modelo orientado a objetos do projeto orientado a objetos da MAPA continua sendo a escolha mais natural. A conclusão considera os aspectos a seguir.
 
 Desempenho. No lote de 100.000 viagens, a média de cinco rodadas foi de 5,2 ms no modo sequencial e de 2,0 ms no modo paralelo, no servidor do GitHub Actions; na máquina local do autor, 11,8 ms e 7,1 ms. O modo paralelo foi mais rápido nos dois ambientes, mas o ganho absoluto é de poucos milissegundos, e a proporção mudou de um ambiente para outro. Isso mostra que o paralelismo compensa quando cada item exige muito cálculo ou quando o volume é grande. Para o lote de 10 viagens, o custo de dividir o trabalho entre os núcleos seria maior que o próprio cálculo. Os tempos medidos variam conforme a máquina e não representam um teste de desempenho de produção. Além disso, criar um objeto novo em cada etapa custa memória, algo a acompanhar em volumes muito maiores.
 
@@ -13,9 +13,9 @@ Adequação ao cenário. Os requisitos — cálculos repetidos, volume grande, e
 Quando o paradigma funcional não é a melhor escolha:
 
 - Volumes pequenos ou cálculos triviais: o custo de montar o pipeline e, principalmente, de paralelizá-lo pode ser maior que o ganho.
-- Regras que dependem de estado acumulado em sequência, como o registro de viagens de um mesmo veículo, em que cada viagem parte da bateria deixada pela anterior. Esse é o caso da Parte I, em que o objeto mutável representa melhor o problema.
+- Regras que dependem de estado acumulado em sequência, como o registro de viagens de um mesmo veículo, em que cada viagem parte da bateria deixada pela anterior. Esse é o caso do projeto orientado a objetos da MAPA, em que o objeto mutável representa melhor o problema.
 - Rotinas com muitos efeitos colaterais inevitáveis, como gravar em banco de dados ou chamar serviços externos, em que a pureza só pode ser mantida nas bordas do sistema.
 - Equipes sem familiaridade com o paradigma e com prazo curto, em que o risco de usar os recursos de forma incorreta supera o benefício.
 - Situações em que a memória é limitada e criar objetos novos a cada etapa não é aceitável.
 
-Em síntese, a recomendação da SAN SOLUÇÕES é combinar os dois paradigmas: objetos para modelar a frota e funções puras sobre dados imutáveis para processar os registros em volume. É essa combinação que entrega, ao mesmo tempo, um modelo claro do domínio e um processamento paralelo confiável.
+Em síntese, a recomendação do autor é combinar os dois paradigmas: objetos para modelar a frota e funções puras sobre dados imutáveis para processar os registros em volume. É essa combinação que entrega, ao mesmo tempo, um modelo claro do domínio e um processamento paralelo confiável.

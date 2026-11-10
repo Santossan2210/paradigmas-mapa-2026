@@ -9,4 +9,7 @@
 [OK] RN03 bicicleta 50 km
 [Van elétrica] Distância percorrida: 100.0 km | Bateria restante: 0.0%
 [OK] RN04 esgotamento
-Verificação concluída: 8/8 casos OK
+[Van elétrica] Distância percorrida: 10.0 km | Bateria restante: 95.0%
+[Bicicleta elétrica] Distância percorrida: 10.0 km | Bateria restante: 98.0%
+[OK] RN05 polimorfismo (van 95.0 e bicicleta 98.0)
+Verificação concluída: 9/9 casos OK

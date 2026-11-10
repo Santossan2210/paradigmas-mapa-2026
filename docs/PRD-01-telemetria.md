@@ -1,20 +1,20 @@
 # DOCUMENTO DE REQUISITOS DO PRODUTO (PRD) 01 — Sistema de Telemetria EcoFleet
 
 **Projeto:** Telemetria de Frota Sustentável — EcoFleet Solutions S.A.
-**Fornecedor:** SAN SOLUÇÕES
+**Autor:** Antonio Santos
 **Elaborado por:** Antonio Santos
 **Data:** 08/11/2026
 **Versão:** 1.3
 **Documento de origem:** PROJETO (= "MAPA - Paradigmas de Linguagens de Programação - 54_2026_Instrução")
 **Índice geral:** [PRD.md](PRD.md) · **PRD complementar:** [PRD-02-relatorio-funcional.md](PRD-02-relatorio-funcional.md)
 
-> Este PRD cobre **somente** o que o documento PROJETO exige. Nada aqui foi criado pela SAN SOLUÇÕES além da escolha de valores de exemplo, que o próprio enunciado pede que sejam "coerentes".
+> Este PRD cobre **somente** o que o documento PROJETO exige. Nada aqui foi criado pelo autor além da escolha de valores de exemplo, que o próprio enunciado pede que sejam "coerentes".
 
 ---
 
 ## 1. Visão Geral do Produto
 
-A EcoFleet Solutions S.A. opera uma frota urbana formada por **vans elétricas de carga** e **bicicletas elétricas de entrega**. A SAN SOLUÇÕES vai reorganizar o sistema de telemetria no paradigma orientado a objetos. A nova solução representa os veículos por tipo, reúne as características comuns em um modelo geral, protege o nível de bateria e calcula o consumo de forma diferente para cada categoria.
+A EcoFleet Solutions S.A. opera uma frota urbana formada por **vans elétricas de carga** e **bicicletas elétricas de entrega**. O autor vai reorganizar o sistema de telemetria no paradigma orientado a objetos. A nova solução representa os veículos por tipo, reúne as características comuns em um modelo geral, protege o nível de bateria e calcula o consumo de forma diferente para cada categoria.
 
 O resultado é entregue em um arquivo identificado com as **Tarefas 1, 2 e 3**.
 
@@ -49,7 +49,7 @@ Modelar e implementar uma solução orientada a objetos que garanta níveis de b
 |---|---|---|---|
 | Avaliador (professor) | Corrige a entrega no ambiente virtual | Ler o arquivo, conferir nomes, regras e valores | Somente leitura |
 | Equipe de operação da EcoFleet (fictícia) | Acompanha a frota | Consultar a bateria e registrar viagens | Consulta e registro de viagem |
-| Autor (Antonio Santos / SAN SOLUÇÕES) | Desenvolve e entrega | Modelar, implementar, testar e redigir | Acesso total |
+| Autor (Antonio Santos) | Desenvolve e entrega | Modelar, implementar, testar e redigir | Acesso total |
 
 ## 5. Escopo da Primeira Versão
 

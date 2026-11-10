@@ -1,7 +1,7 @@
 # FSD — ESPECIFICAÇÃO FUNCIONAL DO SISTEMA
 
 **Sistema:** Telemetria de Frota Sustentável — EcoFleet Solutions S.A.
-**Fornecedor:** SAN SOLUÇÕES
+**Autor:** Antonio Santos
 **Elaborado por:** Antonio Santos
 **Data:** 08/11/2026
 **Versão:** 1.1 (validado; incorpora os achados I1–I4 e M1–M4 da validação)
@@ -14,7 +14,7 @@
 
 A EcoFleet Solutions S.A. (empresa fictícia de um trabalho acadêmico) opera uma frota urbana de **vans elétricas de carga** e **bicicletas elétricas de entrega**. O protótipo anterior de telemetria aceitava níveis de bateria inválidos, abaixo de 0 ou acima de 100, o que comprometia o acompanhamento da frota.
 
-A SAN SOLUÇÕES entrega três produtos:
+O autor entrega três produtos:
 
 1. **Módulo OO (pacote `telemetria`):** reorganiza a telemetria no paradigma orientado a objetos, com classe abstrata, herança, encapsulamento, construtores e polimorfismo. Corresponde às Tarefas 1, 2 e 3 de um enunciado acadêmico (o "PROJETO").
 2. **Módulo funcional (pacote `processamento`):** processa um lote simulado de viagens com um pipeline funcional (transformar, selecionar e agregar), em modo sequencial e paralelo, provando que os dois modos dão o mesmo resultado. Serve de exemplo prático para um relatório sobre o paradigma funcional (Tópicos 1 a 5 de um segundo documento, o "REQUISITOS").
@@ -24,7 +24,7 @@ O código é versionado num repositório público no GitHub e executado automati
 
 **Natureza das exigências:**
 - **Obrigatório:** vem dos documentos acadêmicos.
-- **Premissa:** decisão declarada da SAN SOLUÇÕES (códigos P00 a P05).
+- **Premissa:** decisão declarada do autor (códigos P00 a P05).
 - **Complementar:** opcional, criado para dar evidência concreta à análise.
 
 Cada item deste FSD indica a sua natureza quando ela não for óbvia.
@@ -90,7 +90,7 @@ Cada item deste FSD indica a sua natureza quando ela não for óbvia.
 | Recursos OO | `abstract`, `extends`, `protected`/`private`, construtores, `@Override` |
 | Recursos funcionais | `java.util.stream` (`map`, `filter`, `reduce`, `findFirst`, `limit`, `peek`), lambdas, referências a método, `record`, `enum`, `Function` (função de ordem superior), `parallelStream()` |
 | Controle de versão | Git + GitHub (repositório público `paradigmas-mapa-2026`) |
-| Teste remoto | GitHub Actions (`ubuntu-latest`, `actions/checkout@v4`, `actions/setup-java@v4` com Temurin 21) |
+| Teste remoto | GitHub Actions (`ubuntu-latest`, `actions/checkout@v5`, `actions/setup-java@v5` com Temurin 21) |
 | Geração do relatório | Python 3 + biblioteca `python-docx` |
 | Codificação dos fontes | UTF-8 |
 
@@ -205,7 +205,6 @@ relatorio/gerar_relatorio.py ──lê──► src/**/*.java + relatorio/conteu
 nome_completo=
 ra=
 autor_assinatura=Antonio Santos
-empresa=SAN SOLUÇÕES
 repositorio_url=
 actions_url=
 ```
@@ -349,7 +348,7 @@ Não há telas gráficas. Cada "tela" é uma saída de console ou um documento. 
 
 **Objetivo:** demonstrar o Fluxo de 50 km do enunciado.
 **Origem:** linha de comando. **Destino:** fim do programa.
-**Valores de criação.** O enunciado pede apenas "valores coerentes"; os valores abaixo foram escolhidos pela SAN SOLUÇÕES:
+**Valores de criação.** O enunciado pede apenas "valores coerentes"; os valores abaixo foram escolhidos pelo autor:
 - `new VanEletrica(1, "EcoCargo E-Van 1500", 1500.0, 100.0, "ECO1A26")`
 - `new BicicletaEletrica(2, "EcoBike Urban 25", 30.0, 100.0, 25.0)`
 
@@ -532,7 +531,7 @@ Execução remota: {{actions_url}}
 
 | Arquivo | Seção do .docx | Conteúdo mínimo |
 |---|---|---|
-| `00_capa.txt` | Identificação | Título do trabalho; "Identificação da empresa"; Nome completo e RA (vindos de `identificacao.local.txt`); empresa SAN SOLUÇÕES; links do repositório e do Actions |
+| `00_capa.txt` | Identificação | Título do trabalho; "Identificação da empresa"; Nome completo e RA (vindos de `identificacao.local.txt`); empresa Antonio Santos; links do repositório e do Actions |
 | `10_tarefa1.txt` | Parte I — Tarefa 1: Modelagem conceitual | Representação textual das 3 classes com atributos, tipos e visibilidades (tabela); relação de herança; justificativa de `Veiculo` abstrata; explicação de `protected` × `private` |
 | `20_tarefa2.txt` | Parte I — Tarefa 2: Implementação em Java | Código das 4 classes, cada uma com título próprio; saída de `telemetria.Main` |
 | `30_tarefa3.txt` | Parte I — Tarefa 3: Justificativa | **10 a 20 linhas** no `.docx` (Arial 12, margens de 2,5 cm, o que equivale a cerca de **130 a 260 palavras**). O script conta as palavras desse arquivo e imprime um **aviso**, sem abortar, se ficar fora da faixa. Deve cobrir a lógica do `setAutonomiaBateria`, a reutilização via superclasse, o uso da distância em `registrarViagem` e o papel do construtor |
@@ -562,7 +561,7 @@ Nomes:
 - `processamento_main.txt`
 - `verificacao_regras.txt`
 
-**Autoria do texto:** os textos de `conteudo/` são redigidos em primeira pessoa do plural institucional ("a SAN SOLUÇÕES adotou…") ou em impessoal, num tom direto. O autor revisa e reescreve com as próprias palavras antes da entrega.
+**Autoria do texto:** os textos de `conteudo/` são redigidos em primeira pessoa do plural institucional ("o autor adotou…") ou em impessoal, num tom direto. O autor revisa e reescreve com as próprias palavras antes da entrega.
 
 ## 16. Regras de Negócio Detalhadas
 
@@ -577,7 +576,7 @@ Nomes:
 | RN06 | `Veiculo` é `abstract` e não pode ser instanciada. | `Veiculo` |
 | RN-D1 | A demonstração usa bateria inicial 100.0 e viagem de 50.0 km, e exibe 75.0 (van) e 90.0 (bicicleta). | `Main` |
 
-### 16.2 Premissas da Solução Funcional (SAN SOLUÇÕES, declaradas no relatório)
+### 16.2 Premissas da Solução Funcional (Antonio Santos, declaradas no relatório)
 
 | Código | Premissa |
 |---|---|
@@ -660,15 +659,15 @@ O sistema não consome APIs. A única integração é a infraestrutura de CI.
 - **Nome:** `Executar e verificar`.
 - **Gatilhos:** `push` (todas as branches) e `workflow_dispatch`.
 - **Job** `executar`, em `runs-on: ubuntu-latest`. Passos, em ordem:
-  1. `actions/checkout@v4`.
-  2. `actions/setup-java@v4` com `distribution: temurin` e `java-version: '21'`.
+  1. `actions/checkout@v5`.
+  2. `actions/setup-java@v5` com `distribution: temurin` e `java-version: '21'`.
   3. **Compilar:** `javac -encoding UTF-8 -d out src/telemetria/*.java src/processamento/*.java src/verificacao/*.java`.
   4. **Executar módulo OO:** `java -Dstdout.encoding=UTF-8 -cp out telemetria.Main | tee saida_telemetria.txt`.
   5. **Conferir módulo OO:** `grep -q "Van elétrica: 75.0%" saida_telemetria.txt && grep -q "Bicicleta elétrica: 90.0%" saida_telemetria.txt`.
   6. **Executar módulo funcional:** `java -Dstdout.encoding=UTF-8 -cp out processamento.ProcessamentoMain | tee saida_processamento.txt`.
   7. **Conferir módulo funcional:** `grep -q "Resultados idênticos: SIM" saida_processamento.txt`.
   8. **Verificar regras:** `java -Dstdout.encoding=UTF-8 -cp out verificacao.VerificacaoRegras | tee saida_verificacao.txt`.
-  9. **Publicar saídas:** `actions/upload-artifact@v4` com os três `.txt` (nome `saidas`), executado com `if: always()`, para copiar ao relatório.
+  9. **Publicar saídas:** `actions/upload-artifact@v6` com os três `.txt` (nome `saidas`), executado com `if: always()`, para copiar ao relatório.
 - **Configuração:** declarar `defaults: run: shell: bash` no job. Com `shell: bash` explícito, o Actions executa com `-eo pipefail`, então uma falha do `java` antes do `tee` não é mascarada.
 - Não usa `secrets` nem permissões especiais.
 

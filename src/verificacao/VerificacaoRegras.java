@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import telemetria.BicicletaEletrica;
 import telemetria.VanEletrica;
+import telemetria.Veiculo;
 
 /**
  * Confere as regras de bateria do pacote telemetria usando apenas a API pública
@@ -13,7 +14,7 @@ import telemetria.VanEletrica;
  */
 public final class VerificacaoRegras {
 
-    private static final int TOTAL_CASOS = 8;
+    private static final int TOTAL_CASOS = 9;
 
     private VerificacaoRegras() {
     }
@@ -41,6 +42,15 @@ public final class VerificacaoRegras {
         VanEletrica vanQuaseVazia = novaVan(10.0);
         vanQuaseVazia.registrarViagem(100.0);
         if (conferir("RN04 esgotamento", 0.0, vanQuaseVazia.getAutonomiaBateria())) casosOk++;
+
+        // Polimorfismo: a mesma chamada, feita por uma referência do tipo Veiculo,
+        // executa a regra de consumo de cada subclasse
+        Veiculo[] frota = { novaVan(100.0), new BicicletaEletrica(3, "Bicicleta de teste", 30.0, 100.0, 25.0) };
+        for (Veiculo veiculo : frota) {
+            veiculo.registrarViagem(10.0);
+        }
+        if (conferir("RN05 polimorfismo (van 95.0 e bicicleta 98.0)", 95.0 + 98.0,
+                frota[0].getAutonomiaBateria() + frota[1].getAutonomiaBateria())) casosOk++;
 
         System.out.printf(Locale.ROOT, "Verificação concluída: %d/%d casos OK%n", casosOk, TOTAL_CASOS);
         if (casosOk != TOTAL_CASOS) {

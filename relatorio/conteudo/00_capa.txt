@@ -1,26 +1,5 @@
-# Paradigmas de Linguagens de Programação — MAPA
-
-Telemetria de Frota Sustentável — EcoFleet Solutions S.A.
-
-## Identificação da empresa
+# IDENTIFICAÇÃO
 
 Nome completo: {{nome_completo}}
 
 RA: {{ra}}
-
-Empresa: {{empresa}}
-
-Assinatura do código: {{autor_assinatura}}
-
-Repositório: {{repositorio_url}}
-
-Execução remota: {{actions_url}}
-
-## Organização do documento
-
-O trabalho está dividido em duas partes independentes, que compartilham o mesmo cenário.
-
-- Parte I — Projeto orientado a objetos: modelagem conceitual (Tarefa 1), implementação em Java (Tarefa 2) e justificativa (Tarefa 3).
-- Parte II — Relatório sobre o paradigma funcional: Tópicos 1 a 5, com um exemplo prático de processamento de dados em Java.
-
-Todo o código está no repositório indicado acima e é compilado e executado automaticamente no GitHub Actions a cada envio. As saídas reproduzidas neste documento são as da execução remota aprovada.

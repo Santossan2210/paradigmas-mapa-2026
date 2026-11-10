@@ -1,7 +1,7 @@
 # DOCUMENTO DE REQUISITOS DO PRODUTO (PRD) — Índice
 
 **Projeto:** EcoFleet Solutions S.A. — Paradigmas de Linguagens de Programação (MAPA 54/2026)
-**Fornecedor:** SAN SOLUÇÕES
+**Autor:** Antonio Santos
 **Elaborado por:** Antonio Santos
 **Data:** 08/11/2026
 **Versão:** 1.3. A 1.0 era um PRD único; a 1.1 separou em dois; a 1.2 e a 1.3 incorporam a segunda e a terceira revisões.
@@ -20,7 +20,7 @@ A versão 1.0 juntava os dois em um só documento e perdia o foco. Por isso eles
 | PRD | Escopo | Origem |
 |---|---|---|
 | [PRD-01 — Sistema de Telemetria EcoFleet](PRD-01-telemetria.md) | Tarefas 1, 2 e 3 (OO em Java) | Somente o PROJETO |
-| [PRD-02 — Relatório Técnico: Paradigma Funcional](PRD-02-relatorio-funcional.md) | Tópicos 1 a 5, com escopo obrigatório e complementar separados | Somente o REQUISITOS, mais as premissas da SAN SOLUÇÕES |
+| [PRD-02 — Relatório Técnico: Paradigma Funcional](PRD-02-relatorio-funcional.md) | Tópicos 1 a 5, com escopo obrigatório e complementar separados | Somente o REQUISITOS, mais as premissas do autor |
 
 ## 2. Quadro de rastreabilidade
 
@@ -37,8 +37,8 @@ A versão 1.0 juntava os dois em um só documento e perdia o foco. Por isso eles
 | REQUISITOS | Autoria de Antonio Santos; teste remoto gratuito; GitHub | PRD-02 §5.A.3 / §11.A | Obrigatório |
 | REQUISITOS | Tópico 4 — Aplicabilidade | PRD-02 §5.A.4 / §11.A | Obrigatório |
 | REQUISITOS | Tópico 5 — Conclusão crítica | PRD-02 §5.A.5 / §11.A | Obrigatório |
-| SAN SOLUÇÕES | P00 a P05 (cenário EcoFleet, bateria crítica abaixo de 20%, lote 30/70, sequencial = paralelo, imutabilidade, funções puras) | PRD-02 §7.1 | Premissa |
-| SAN SOLUÇÕES | Lote de 10 e de 100.000 viagens, medição de tempo, avaliação preguiçosa visível, GitHub Actions, evidências | PRD-02 §5.B / §11.B | Complementar |
+| Antonio Santos | P00 a P05 (cenário EcoFleet, bateria crítica abaixo de 20%, lote 30/70, sequencial = paralelo, imutabilidade, funções puras) | PRD-02 §7.1 | Premissa |
+| Antonio Santos | Lote de 10 e de 100.000 viagens, medição de tempo, avaliação preguiçosa visível, GitHub Actions, evidências | PRD-02 §5.B / §11.B | Complementar |
 
 ## 3. Correções aplicadas na versão 1.1
 

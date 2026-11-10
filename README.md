@@ -1,7 +1,7 @@
 # Telemetria de Frota Sustentável — EcoFleet
 
 Projeto acadêmico da disciplina Paradigmas de Linguagens de Programação (MAPA 54/2026).
-Desenvolvido por **Antonio Santos** — SAN SOLUÇÕES.
+Desenvolvido por **Antonio Santos**.
 
 - `src/telemetria` — modelo orientado a objetos (Veiculo, VanEletrica, BicicletaEletrica, Main)
 - `src/processamento` — processamento funcional de viagens com Java Streams
@@ -28,4 +28,9 @@ pip install -r relatorio/requirements.txt
 python relatorio/gerar_relatorio.py
 ```
 
-O arquivo é gravado em `relatorio/gerado/`, que também não é versionado.
+São gravados em `relatorio/gerado/` (pasta não versionada):
+
+- `Relatorio_MAPA_Paradigmas_Antonio_Santos.docx`: a entrega, na sequência pedida pela disciplina (Identificação, Tarefa 1, Tarefa 2 com as quatro classes e Tarefa 3).
+- `Complemento_Paradigma_Funcional_Antonio_Santos.docx`: os Tópicos 1 a 5 sobre o paradigma funcional.
+
+Para usar o Formulário Padrão (Template) do STUDEO, salve-o como `relatorio/template.local.docx` antes de gerar. Ele não é versionado.

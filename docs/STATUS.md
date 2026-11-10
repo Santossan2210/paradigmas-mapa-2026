@@ -66,5 +66,16 @@
 - Revisar e reescrever os textos de `relatorio/conteudo/` com as próprias palavras.
 - Verificar a política da UniCesumar sobre uso de IA.
 
+## Ajustes ao tutorial da disciplina (09/11/2026)
+- O relatório da entrega segue a sequência do tutorial: Identificação (nome e RA), Tarefa 1, Tarefa 2 (Veiculo, VanEletrica, BicicletaEletrica e Main) e Tarefa 3. Os Tópicos 1 a 5 foram para um arquivo complementar separado.
+- Tarefa 1 ganhou uma representação textual das classes (`relatorio/conteudo/diagrama_classes.txt`); Tarefa 2 ganhou a tabela de teste e verificação do tutorial; Tarefa 3 foi organizada nos quatro aspectos (validação, herança, processamento e construtores).
+- `VerificacaoRegras` ganhou o caso RN05 (polimorfismo por referência do tipo Veiculo): 9/9 casos.
+- O nome da empresa deixou de ser registrado; a autoria é só Antonio Santos.
+- Actions atualizadas para versões em Node 24 (checkout@v5, setup-java@v5, upload-artifact@v6).
+- O gerador usa `relatorio/template.local.docx` como base, se existir.
+
+## Pendências do autor
+- Baixar o Formulário Padrão (Template) do STUDEO e salvar como `relatorio/template.local.docx`; depois, gerar de novo.
+
 ## Próxima ação recomendada
 Todas as fases do PLANO.md foram concluídas. Próximo passo: skill `vibe-revisao-seguranca`.

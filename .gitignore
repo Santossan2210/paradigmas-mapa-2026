@@ -27,3 +27,6 @@ Desktop.ini
 
 # Arquivos temporários do Word
 ~$*.docx
+
+# Formulário Padrão (Template) do STUDEO — material da disciplina
+relatorio/template.local.docx

@@ -1,27 +1,41 @@
-## Tarefa 2 — Implementação em Java
+# TAREFA 2 — IMPLEMENTAÇÃO EM JAVA
 
-A implementação foi feita em Java 21, sem bibliotecas externas, e compilada com o javac. As quatro classes ficam no pacote telemetria. A redução da bateria é calculada como bateria atual menos distância vezes a taxa do veículo (0.5 ponto percentual por km para a van e 0.2 para a bicicleta), e o novo valor sempre é gravado por meio de setAutonomiaBateria().
+As quatro classes pertencem ao pacote telemetria e foram compiladas com Java 21 (javac), sem bibliotecas externas. Em cada viagem, a nova bateria é calculada como a bateria atual menos a distância vezes a taxa do veículo (0.5 ponto percentual por km na van e 0.2 na bicicleta), e o valor é sempre gravado por setAutonomiaBateria().
 
-## Classe Veiculo
+## Código da classe Veiculo
 
 [[CODIGO:src/telemetria/Veiculo.java]]
 
-## Classe VanEletrica
+## Código da classe VanEletrica
 
 [[CODIGO:src/telemetria/VanEletrica.java]]
 
-## Classe BicicletaEletrica
+## Código da classe BicicletaEletrica
 
 [[CODIGO:src/telemetria/BicicletaEletrica.java]]
 
-## Classe Main
+## Código da classe Main
 
 [[CODIGO:src/telemetria/Main.java]]
 
 ## Saída da execução
 
-A saída abaixo é a da execução no GitHub Actions. Partindo de 100% de bateria, a viagem de 50 km consome 25 pontos na van (50 × 0.5) e 10 pontos na bicicleta (50 × 0.2), resultando em 75.0% e 90.0%, como esperado.
+Os dois veículos partem de 100.0% e fazem uma viagem de 50.0 km. A van consome 25 pontos (50 x 0.5) e a bicicleta 10 pontos (50 x 0.2), e os níveis finais são 75.0% e 90.0%, como determina o enunciado.
 
 [[SAIDA:relatorio/saidas/telemetria_main.txt]]
 
-Além da demonstração pedida, o repositório tem um programa de verificação (VerificacaoRegras) que confere automaticamente a validação da bateria nos limites e fora deles, os valores 75.0 e 90.0 e o esgotamento da bateria em uma viagem longa. Ele também roda no GitHub Actions e terminou com 8 de 8 casos corretos.
+## Teste e verificação
+
+Antes da entrega, o programa foi compilado e executado. Além da simulação, um programa de verificação usa apenas os métodos públicos das classes para testar a validação com valores negativos, acima de 100.0, nos limites e dentro do intervalo, o consumo de cada tipo, o esgotamento da bateria e o polimorfismo. Todos os 9 casos passaram.
+
+[[TABELA]]
+Verificação | O que foi observado | Resultado
+Compilação | As quatro classes compilam sem erros de sintaxe ou de acesso | OK
+Herança | VanEletrica e BicicletaEletrica estendem Veiculo e usam os atributos protected herdados | OK
+Encapsulamento | A bateria só é lida e alterada por getAutonomiaBateria() e setAutonomiaBateria() | OK
+Validação | -5.0 e 120.0 viram 0.0; 0.0, 50.0 e 100.0 são gravados normalmente | OK
+Polimorfismo | A mesma chamada registrarViagem(10.0), feita por referências do tipo Veiculo, deixa a van em 95.0 e a bicicleta em 98.0 | OK
+Simulação | Viagem de 50.0 km: van com 75.0% e bicicleta com 90.0% | OK
+[[/TABELA]]
+
+[[SAIDA:relatorio/saidas/verificacao_regras.txt]]

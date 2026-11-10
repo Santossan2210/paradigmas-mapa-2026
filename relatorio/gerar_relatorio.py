@@ -1,6 +1,14 @@
 """
-Gera o relatório da MAPA (.docx) a partir dos textos de relatorio/conteudo/,
+Gera os documentos da MAPA (.docx) a partir dos textos de relatorio/conteudo/,
 do código-fonte em src/ e das saídas capturadas em relatorio/saidas/.
+
+- Relatorio_MAPA_...docx: a entrega, na sequência do tutorial da disciplina
+  (Identificação, Tarefa 1, Tarefa 2 e Tarefa 3).
+- Complemento_Paradigma_Funcional_...docx: os Tópicos 1 a 5 sobre o paradigma
+  funcional, em arquivo separado.
+
+Se existir relatorio/template.local.docx (o Formulário Padrão baixado do STUDEO),
+ele é usado como base: estilos, margens, cabeçalho e rodapé vêm do template.
 
 Uso, na raiz do repositório:
     python relatorio/gerar_relatorio.py
@@ -20,21 +28,25 @@ from docx.shared import Cm, Pt, RGBColor
 
 RAIZ = Path(__file__).resolve().parent.parent
 IDENTIFICACAO = "relatorio/identificacao.local.txt"
-SAIDA_DOCX = "relatorio/gerado/Relatorio_MAPA_Paradigmas_Antonio_Santos.docx"
+TEMPLATE = "relatorio/template.local.docx"
 
-# Ordem de montagem. Os arquivos marcados com True começam em página nova
-# (início da Parte I e da Parte II).
-CONTEUDO = [
-    ("relatorio/conteudo/00_capa.txt", False),
-    ("relatorio/conteudo/10_tarefa1.txt", True),
-    ("relatorio/conteudo/20_tarefa2.txt", False),
-    ("relatorio/conteudo/30_tarefa3.txt", False),
-    ("relatorio/conteudo/40_topico1.txt", True),
-    ("relatorio/conteudo/50_topico2.txt", False),
-    ("relatorio/conteudo/60_topico3.txt", False),
-    ("relatorio/conteudo/70_topico4.txt", False),
-    ("relatorio/conteudo/80_topico5.txt", False),
-    ("relatorio/conteudo/90_referencias.txt", False),
+# Cada documento: (arquivo de saída, [(texto, começa em página nova)])
+DOCUMENTOS = [
+    ("relatorio/gerado/Relatorio_MAPA_Paradigmas_Antonio_Santos.docx", [
+        ("relatorio/conteudo/00_capa.txt", False),
+        ("relatorio/conteudo/10_tarefa1.txt", False),
+        ("relatorio/conteudo/20_tarefa2.txt", True),
+        ("relatorio/conteudo/30_tarefa3.txt", True),
+        ("relatorio/conteudo/95_referencias_mapa.txt", False),
+    ]),
+    ("relatorio/gerado/Complemento_Paradigma_Funcional_Antonio_Santos.docx", [
+        ("relatorio/conteudo/40_topico1.txt", False),
+        ("relatorio/conteudo/50_topico2.txt", False),
+        ("relatorio/conteudo/60_topico3.txt", False),
+        ("relatorio/conteudo/70_topico4.txt", False),
+        ("relatorio/conteudo/80_topico5.txt", False),
+        ("relatorio/conteudo/90_referencias.txt", False),
+    ]),
 ]
 
 # A Tarefa 3 precisa ocupar de 10 a 20 linhas no documento (Arial 12, margens de 2,5 cm)
@@ -90,11 +102,29 @@ def substituir_chaves(linha, dados):
 
 # ---------- formatação ----------
 
+def novo_documento():
+    """Parte do template oficial, se existir, apagando o corpo e mantendo o resto."""
+    if (RAIZ / TEMPLATE).is_file():
+        doc = Document(str(RAIZ / TEMPLATE))
+        corpo = doc.element.body
+        for elemento in list(corpo):
+            if elemento.tag != qn("w:sectPr"):   # sectPr guarda margens, cabeçalho e rodapé
+                corpo.remove(elemento)
+        configurar_estilos(doc)
+        return doc
+    doc = Document()
+    configurar_documento(doc)
+    return doc
+
+
 def configurar_documento(doc):
     for secao in doc.sections:
         secao.top_margin = secao.bottom_margin = Cm(2.5)
         secao.left_margin = secao.right_margin = Cm(2.5)
+    configurar_estilos(doc)
 
+
+def configurar_estilos(doc):
     normal = doc.styles["Normal"]
     definir_fonte(normal.font, FONTE_TEXTO, 12)
     normal.paragraph_format.space_after = Pt(6)
@@ -240,24 +270,27 @@ def main():
     dados = ler_identificacao()
 
     # Confere tudo antes de começar, para não gerar um documento pela metade
-    for relativo, _ in CONTEUDO:
-        caminho(relativo)
+    for _, partes in DOCUMENTOS:
+        for relativo, _ in partes:
+            caminho(relativo)
 
-    doc = Document()
-    configurar_documento(doc)
+    if (RAIZ / TEMPLATE).is_file():
+        print(f"Usando o template: {TEMPLATE}")
+    else:
+        print(f"Aviso: {TEMPLATE} não encontrado; o documento usa a formatação padrão do script.")
 
-    for relativo, pagina_nova in CONTEUDO:
-        if pagina_nova:
-            doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
-        montar_arquivo(doc, relativo, dados)
+    for saida, partes in DOCUMENTOS:
+        doc = novo_documento()
+        for relativo, pagina_nova in partes:
+            if pagina_nova:
+                doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
+            montar_arquivo(doc, relativo, dados)
+        destino = RAIZ / saida
+        destino.parent.mkdir(parents=True, exist_ok=True)
+        doc.save(destino)
+        print(f"Gerado: {saida}")
 
-    palavras = conferir_tarefa3()
-
-    destino = RAIZ / SAIDA_DOCX
-    destino.parent.mkdir(parents=True, exist_ok=True)
-    doc.save(destino)
-    print(f"Tarefa 3: {palavras} palavras")
-    print(f"Relatório gerado: {SAIDA_DOCX}")
+    print(f"Tarefa 3: {conferir_tarefa3()} palavras")
 
 
 if __name__ == "__main__":
